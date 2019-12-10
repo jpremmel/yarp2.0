@@ -86,3 +86,11 @@ export function addArticle(_coreId, _author, _title, _year, _downloadUrl, _descr
     description: _description
   });
 }
+
+export function watchFirebaseArticlesRef() {
+  return function(dispatch) {
+    articles.on('child_added', data => {
+      console.log('FROM FIREBASE: ', data.val());
+    });
+  }
+}
