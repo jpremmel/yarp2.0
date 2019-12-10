@@ -1,6 +1,5 @@
-import * as types from './../constants/ActionTypes';
 import constants from './../constants';
-const { firebaseConfig } = constants;
+const { firebaseConfig, types } = constants;
 import * as firebase from 'firebase';
 
 firebase.initializeApp(firebaseConfig);
@@ -90,7 +89,17 @@ export function addArticle(_coreId, _author, _title, _year, _downloadUrl, _descr
 export function watchFirebaseArticlesRef() {
   return function(dispatch) {
     articles.on('child_added', data => {
-      console.log('FROM FIREBASE: ', data.val());
+      const newArticle = Object.assign({}, data.val(), {
+        id: data.key
+      });
+      dispatch(receiveArticleFromFirebase(newArticle));
     });
   }
+}
+
+export function receiveArticleFromFirebase(_article) {
+  return {
+    type: types.RECEIVE_ARTICLE_FROM_FIREBASE,
+    article: _article
+  };
 }
