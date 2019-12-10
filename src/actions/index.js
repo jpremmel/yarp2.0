@@ -1,4 +1,10 @@
 import * as types from './../constants/ActionTypes';
+import constants from './../constants';
+const { firebaseConfig } = constants;
+import * as firebase from 'firebase';
+
+firebase.initializeApp(firebaseConfig);
+const articles = firebase.database().ref('articles');
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
@@ -51,3 +57,32 @@ export const saveArticle = article => ({
   type: types.SAVE_ARTICLE,
   article
 });
+
+export function addArticle(_coreId, _author, _title, _year, _downloadUrl, _description) {
+  if (!_coreId) {
+    _coreId = '';
+  }
+  if (!_author) {
+    _author = '';
+  }
+  if (!_title) {
+    _title = '';
+  }
+  if (!_year) {
+    _year = '';
+  }
+  if (!_downloadUrl) {
+    _downloadUrl = '';
+  }
+  if (!_description) {
+    _description = '';
+  }
+  return () => articles.push({
+    coreId: _coreId,
+    author: _author,
+    title: _title,
+    year: _year,
+    downloadUrl: _downloadUrl,
+    description: _description
+  });
+}
