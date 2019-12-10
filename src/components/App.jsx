@@ -7,6 +7,7 @@ import SearchResults from './SearchResults';
 import PropTypes from 'prop-types';
 import * as actions from './../actions';
 import { connect } from 'react-redux';
+import CoreLogo from '../assets/images/core-logo.png';
 
 class App extends React.Component {
 
@@ -25,6 +26,12 @@ class App extends React.Component {
     let colStyle = {
       padding: '50px'
     };
+    let logoStyle = {
+      width: '10%',
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    };
     return(
       <div style={colStyle}>
         <Header/>
@@ -36,6 +43,9 @@ class App extends React.Component {
           <div style={colStyle} className='col s6'>
             <ArticleList/>
           </div>
+        </div>
+        <div className='row'>
+          <a target='_blank' href='https://core.ac.uk/'><img src={CoreLogo} style={logoStyle}/></a>
         </div>
       </div>
     );
