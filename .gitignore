@@ -1,6 +1,4 @@
 node_modules
 build
-obj/
-bin/
-.vscode/
 .DS_Store/
+src/constants/firebaseConfig.js
