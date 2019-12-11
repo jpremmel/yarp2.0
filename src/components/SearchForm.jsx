@@ -5,6 +5,12 @@ import { fetchSearchResults } from './../actions';
 
 function SearchForm({ dispatch }){
   let input;
+  let btnStyle = {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: '10px'
+  };
   return(
     <div>
       <form onSubmit={e => {
@@ -21,7 +27,7 @@ function SearchForm({ dispatch }){
             placeholder='Search for an article'
             ref={node => { input = node; }} />
         </div>
-        <button className='waves-effect waves-light btn-small'>Search</button>
+        <button style={btnStyle} className='waves-effect waves-light btn-small'>Search</button>
       </form>
     </div>
   );
