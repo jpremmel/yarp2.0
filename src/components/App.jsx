@@ -27,11 +27,11 @@ class App extends React.Component {
       padding: '50px'
     };
     let logoStyle = {
-      width: '10%',
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto'
+      textAlign: 'center'
     };
+    let imgStyle = {
+      width: '10%'
+    }
     return(
       <div style={colStyle}>
         <Header/>
@@ -45,8 +45,10 @@ class App extends React.Component {
           </div>
         </div>
         <div className='row'>
-          <a target='_blank' href='https://core.ac.uk/'><img src={CoreLogo} style={logoStyle}/></a>
+        <div className='col' style={logoStyle}>
+          <a target='_blank' href='https://core.ac.uk/'><img src={CoreLogo} style={imgStyle}/></a>
         </div>
+      </div>
       </div>
     );
   }
