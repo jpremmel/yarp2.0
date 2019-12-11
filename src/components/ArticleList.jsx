@@ -1,10 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectArticle } from './../actions';
+import { selectArticle, removeArticleFromFirebase } from './../actions';
 
 const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
-  const currentPaper = articleList[currentPaperId];
+  let detailsStyle = {
+    backgroundColor: '#d9d9d9',
+    borderRadius: '3px',
+    padding: '15px'
+  };
+  let btnStyle = {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: '10px'
+  };
   return(
     <div>
       <h3>My Articles</h3>
@@ -14,10 +24,11 @@ const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
         let articleInformation = '';
         if (article.coreId === currentPaperId) {
           articleInformation =
-            <div>
+            <div style={detailsStyle}>
               <p>{article.year}</p>
               <p>{article.description}</p>
-              <a target="_blank" href={article.downloadUrl}>See article</a>
+              <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
+              <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {dispatch(removeArticleFromFirebase(article.id))}}>Remove from My Articles</button>
             </div>;
         }
         return <li 

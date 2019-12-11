@@ -13,7 +13,6 @@ function SearchForm({ dispatch }){
           return;
         }
         dispatch(fetchSearchResults(input.value.trim()));
-        console.log('Searched: ' + input.value.trim());
         input.value = '';
       }}>
         <div className='input-field'>

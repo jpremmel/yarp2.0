@@ -40,12 +40,17 @@ module.exports = {
           },
           {
             test: /\.jsx?$/,
-            enforce: "pre",
-            loader: "eslint-loader",
+            loader: "babel-loader",
             exclude: /node_modules/,
             options: {
-              emitWarning: true,
-              configFile: "./.eslintrc.json"
+                presets: [
+                    ["@babel/preset-env", {"modules": false}],
+                    "@babel/preset-react",
+                ],
+                plugins: [
+                  "react-hot-loader/babel",
+                  "styled-jsx/babel"
+                ]
             }
           },
           {
@@ -59,19 +64,17 @@ module.exports = {
             }
           },
           {
-              test: /\.jsx?$/,
-              loader: "babel-loader",
-              exclude: /node_modules/,
-              options: {
-                  presets: [
-                      ["@babel/preset-env", {"modules": false}],
-                      "@babel/preset-react",
-                  ],
-                  plugins: [
-                    "react-hot-loader/babel",
-                    "styled-jsx/babel"
-                  ]
-              }
+            test: /\.jsx?$/,
+            enforce: "pre",
+            loader: "eslint-loader",
+            exclude: [
+              /node_modules/,
+              /core-logo.png/
+            ],
+            options: {
+              emitWarning: true,
+              configFile: "./.eslintrc.json"
+            }
           }
       ]
   },

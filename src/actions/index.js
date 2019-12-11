@@ -52,30 +52,13 @@ export const selectArticle = selectedArticle => ({
   selectedArticle
 });
 
-export const saveArticle = article => ({
-  type: types.SAVE_ARTICLE,
-  article
-});
-
 export function addArticle(_coreId, _author, _title, _year, _downloadUrl, _description) {
-  if (!_coreId) {
-    _coreId = '';
-  }
-  if (!_author) {
-    _author = '';
-  }
-  if (!_title) {
-    _title = '';
-  }
-  if (!_year) {
-    _year = '';
-  }
-  if (!_downloadUrl) {
-    _downloadUrl = '';
-  }
-  if (!_description) {
-    _description = '';
-  }
+  if (!_coreId) { _coreId = ''; }
+  if (!_author) { _author = ''; }
+  if (!_title) { _title = ''; }
+  if (!_year) { _year = ''; }
+  if (!_downloadUrl) { _downloadUrl = ''; }
+  if (!_description) { _description = ''; }
   return () => articles.push({
     coreId: _coreId,
     author: _author,
@@ -103,3 +86,16 @@ export function receiveArticleFromFirebase(_article) {
     article: _article
   };
 }
+
+export function removeArticleFromFirebase(id) {
+  return (dispatch) => {
+    console.log('ID OF ARTICLE TO BE DELETED: ', id);
+    articles.child(id).remove();
+    dispatch(removeArticle(id));
+  };
+}
+
+export const removeArticle = id => ({
+  type: types.REMOVE_ARTICLE,
+  id
+});

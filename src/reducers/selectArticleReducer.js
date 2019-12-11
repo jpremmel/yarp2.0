@@ -9,6 +9,8 @@ const selectArticleReducer = (state = initialState.currentPaperId, action) => {
     } else {
       return action.selectedArticle;
     }
+  case types.REMOVE_ARTICLE:
+    return null;
   default:
     return state;
   }
