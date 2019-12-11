@@ -31,7 +31,7 @@ class App extends React.Component {
     };
     let imgStyle = {
       width: '10%'
-    }
+    };
     return(
       <div style={colStyle}>
         <Header/>
