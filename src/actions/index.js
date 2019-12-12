@@ -7,9 +7,8 @@ const articles = firebase.database().ref('articles');
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
-    dispatch(requestArticles(search));
     search = search.replace(' ', '_');
-    return fetch('https://core.ac.uk:443/api-v2/articles/search/' + search + '?page=1&pageSize=10&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=4b5w1ZMhAfgeOtQTFURDWVmIuNjoq6kc').then(
+    return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=10&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
       response => response.json(),
       error => console.log('An error occurred.', error)
     ).then(function (json) {
