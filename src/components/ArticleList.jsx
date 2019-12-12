@@ -4,6 +4,13 @@ import { connect } from 'react-redux';
 import { selectArticle, removeArticleFromFirebase } from './../actions';
 
 const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
+  let noArticlesStyle = {
+    color: '#d9d9d9',
+    textAlign: 'center'
+  };
+  let centerTextStyle = {
+    textAlign: 'center'
+  };
   let detailsStyle = {
     backgroundColor: '#d9d9d9',
     borderRadius: '3px',
@@ -15,14 +22,19 @@ const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
     marginRight: 'auto',
     marginBottom: '10px'
   };
+  let header;
+  if (Object.entries(articleList).length != 0) {
+    header = <div><h3 style={centerTextStyle}>My Articles</h3><br/></div>;
+  } else {
+    header = <h4 style={noArticlesStyle}>No articles yet</h4>;
+  }
   return(
     <div>
-      <h3>My Articles</h3>
-      <br/>
+      {header}
       {Object.keys(articleList).map(articleId => {
         let article = articleList[articleId];
         let articleInformation = '';
-        if (article.coreId === currentPaperId) {
+        if (article.id === currentPaperId) {
           articleInformation =
             <div style={detailsStyle}>
               <p>{article.year}</p>
@@ -33,7 +45,7 @@ const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
         }
         return <li 
           key={articleId} 
-          onClick={() => {dispatch(selectArticle(article.coreId));}}>
+          onClick={() => {dispatch(selectArticle(article.id));}}>
           <em>{article.title}</em> by {article.author}{articleInformation}</li>;
       })}
     </div>

@@ -10,10 +10,13 @@ export function fetchSearchResults(search) {
     search = search.replace(' ', '_');
     return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=10&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
       response => response.json(),
-      error => console.log('An error occurred.', error)
+      error => console.log('Error occurred. ', error)
     ).then(function (json) {
-      console.log(json);
-      if (json.data.length > 0) {
+      if (json.error) {
+        console.log('Error code: ', json.error.code);
+        console.log('Error message: ', json.error.message);
+        dispatch(searchError());
+      } else if (json.data.length > 0) {
         let searchResults = {};
         for (let i = 0; i < json.data.length; i++) {
           let newArticle = {
@@ -30,8 +33,12 @@ export function fetchSearchResults(search) {
         }
         dispatch(receiveSearchResults(searchResults));
       } else {
-        console.log('No search results :(');
+        console.log('No search results.');
+        dispatch(searchError());
       }
+    }, error => {
+      console.log('Error occurred. ', error);
+      dispatch(searchError());
     });
   };
 }
@@ -97,4 +104,8 @@ export function removeArticleFromFirebase(id) {
 export const removeArticle = id => ({
   type: types.REMOVE_ARTICLE,
   id
+});
+
+export const searchError = () => ({
+  type: types.SEARCH_ERROR
 });
