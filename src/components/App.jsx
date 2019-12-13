@@ -15,12 +15,12 @@ class App extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    console.log('COMPONENT WILL MOUNT');
-    const { dispatch } = this.props;
-    const { watchFirebaseArticlesRef } = actions;
-    dispatch(watchFirebaseArticlesRef());
-  }
+  // componentWillMount() {
+  //   console.log('COMPONENT WILL MOUNT');
+  //   const { dispatch } = this.props;
+  //   const { watchFirebaseArticlesRef } = actions;
+  //   dispatch(watchFirebaseArticlesRef());
+  // }
 
   render() {
     let colStyle = {

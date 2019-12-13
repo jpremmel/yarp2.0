@@ -3,10 +3,10 @@ import searchResultsReducer from './searchResultsReducer';
 import articleListReducer from './articleListReducer';
 import selectArticleReducer from './selectArticleReducer';
 
-const rootReducer = combineReducers({
+const indexReducers = combineReducers({
   searchResults: searchResultsReducer,
   papersById: articleListReducer,
   currentPaperId: selectArticleReducer
 });
 
-export default rootReducer;
+export default indexReducers;

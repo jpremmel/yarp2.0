@@ -2,8 +2,16 @@ import constants from './../constants';
 const { firebaseConfig, types } = constants;
 import * as firebase from 'firebase';
 
-firebase.initializeApp(firebaseConfig);
-const articles = firebase.database().ref('articles');
+//added today:
+// import 'firebase/firestore';
+// import 'firebase/auth';
+
+// firebase.initializeApp(firebaseConfig);
+//initialize firestore:
+// firebase.firestore()/*.settings({ timestampsInSnapshots: true })*/;
+
+
+// const articles = firebase.database().ref('articles'); //SWITCHING TO FIRESTORE
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
@@ -58,45 +66,61 @@ export const selectArticle = selectedArticle => ({
   selectedArticle
 });
 
-export function addArticle(_coreId, _author, _title, _year, _downloadUrl, _description) {
+export const addArticle = (_coreId, _author, _title, _year, _downloadUrl, _description) => {
   if (!_coreId) { _coreId = ''; }
   if (!_author) { _author = ''; }
   if (!_title) { _title = ''; }
   if (!_year) { _year = ''; }
   if (!_downloadUrl) { _downloadUrl = ''; }
   if (!_description) { _description = ''; }
-  return () => articles.push({
-    coreId: _coreId,
-    author: _author,
-    title: _title,
-    year: _year,
-    downloadUrl: _downloadUrl,
-    description: _description
-  });
-}
-
-export function watchFirebaseArticlesRef() {
-  return function(dispatch) {
-    articles.on('child_added', data => {
-      const newArticle = Object.assign({}, data.val(), {
-        id: data.key
-      });
-      dispatch(receiveArticleFromFirebase(newArticle));
-    });
+  // return () => articles.push({
+  //   coreId: _coreId,
+  //   author: _author,
+  //   title: _title,
+  //   year: _year,
+  //   downloadUrl: _downloadUrl,
+  //   description: _description
+  // });
+  return (dispatch, /*getState,*/ { getFirebase, getFirestore }) => {
+    //make async call to database
+    const firestore = getFirestore(); //gives us a reference to our firestore database
+    firestore.collection('articles').add({
+      coreId: _coreId,
+      author: _author,
+      title: _title,
+      year: _year,
+      downloadUrl: _downloadUrl,
+      description: _description
+    }).then(() => {
+      dispatch({ type: types.CREATE_ARTICLE, coreId, author, title, year, downloadUrl, description });
+    }).catch((err) => {
+      console.log(err);
+      dispatch({ type: types.CREATE_ARTICLE_ERROR, err });
+    })
   }
 }
 
-export function receiveArticleFromFirebase(_article) {
-  return {
-    type: types.RECEIVE_ARTICLE_FROM_FIREBASE,
-    article: _article
-  };
-}
+// export function watchFirebaseArticlesRef() { //will need to edit this to look for firestore, not 'articles'
+//   return function(dispatch) {
+//     articles.on('child_added', data => {
+//       const newArticle = Object.assign({}, data.val(), {
+//         id: data.key
+//       });
+//       dispatch(receiveArticleFromFirebase(newArticle));
+//     });
+//   }
+// }
 
-export function removeArticleFromFirebase(id) {
+// export function receiveArticleFromFirebase(_article) {
+//   return {
+//     type: types.RECEIVE_ARTICLE_FROM_FIREBASE,
+//     article: _article
+//   };
+// }
+
+export function removeArticleFromFirebase(id) { //will need to edit this to look for firestore, not 'articles'
   return (dispatch) => {
-    console.log('ID OF ARTICLE TO BE DELETED: ', id);
-    articles.child(id).remove();
+    // articles.child(id).remove();
     dispatch(removeArticle(id));
   };
 }
