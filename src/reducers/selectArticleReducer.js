@@ -1,5 +1,5 @@
 import constants from './../constants';
-const { initialState, types, firebaseConfig } = constants;
+const { initialState, types } = constants;
 
 const selectArticleReducer = (state = initialState.currentPaperId, action) => {
   switch (action.type) {

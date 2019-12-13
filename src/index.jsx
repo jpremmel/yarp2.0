@@ -12,6 +12,7 @@ import constants from './constants';
 const { firebaseConfig } = constants;
 import firebase from 'firebase';
 import 'firebase/firestore';
+import createReduxStore from './createReduxStore';
 
 const reactReduxFirebaseConfig = {  }; //need to figure out what goes in here
 
@@ -25,14 +26,17 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer
 });
 
-const store = createStore(
-  rootReducer, 
-  // compose(
-  //   reactReduxFirebase(firebase, reactReduxFirebaseConfig),
-  //   reduxFirestore(firebase),
-    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({getFirebase, getFirestore}))
-  // )
-);
+export default () => {
+  return createStore(
+    rootReducer, 
+    compose(
+      reactReduxFirebase(firebase, reactReduxFirebaseConfig),
+      reduxFirestore(firebase),
+      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({getFirebase, getFirestore}))
+    )
+  );
+}
+
 
 const rrfProps = {
   firebase,
