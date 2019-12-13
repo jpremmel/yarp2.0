@@ -62,7 +62,7 @@ ArticleList.propTypes = {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    articleList: state.articles,
+    articleList: state.firestore.ordered.articles,
     currentPaperId: state.currentPaperId
   };
 };

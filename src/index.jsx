@@ -6,13 +6,13 @@ import { Provider, compose } from 'react-redux';
 import rootReducer from './reducers';
 import middlewareLogger from './middleware/middleware-logger';
 import thunkMiddleware from 'redux-thunk';
-import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore';
+import { getFirestore, createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import constants from './constants';
 const { firebaseConfig, initialState } = constants;
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/auth';
+// import 'firebase/auth';
 
 const reactReduxFirebaseConfig = {
   userProfile: 'users',
@@ -22,14 +22,13 @@ const reactReduxFirebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 
-const store = () => createStore(
-  rootReducer, 
-  // initialState,
-  compose(
-    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirestore })),
-    reduxFirestore(firebase)
-  )
-);
+const store = /*() => {
+  return*/ createStore(
+    rootReducer, 
+    initialState, //may or may not need to pass in initialstate?
+    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ /*getFirebase,*/ getFirestore }))
+  );
+// }
 
 const rrfProps = {
   firebase,

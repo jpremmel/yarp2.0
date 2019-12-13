@@ -1,7 +1,7 @@
 import constants from './../constants';
 const { types } = constants;
 import firebase from 'firebase/app';
-// import 'firebase/firestore';
+import 'firebase/firestore'; //trying to figure out whether I need this
 
 export function fetchSearchResults(search) {
   return function (dispatch) {

@@ -18,9 +18,9 @@ class App extends React.Component {
   // componentWillMount() {
   //   console.log('COMPONENT WILL MOUNT');
   //   const { dispatch } = this.props;
-  //   const { watchFirebaseArticlesRef } = actions;
-  //   dispatch(watchFirebaseArticlesRef());
-  // }
+    // const { watchFirebaseArticlesRef } = actions;
+    // dispatch(watchFirebaseArticlesRef());
+  //}
 
   render() {
     let colStyle = {
