@@ -2,11 +2,15 @@ import { combineReducers } from 'redux';
 import searchResultsReducer from './searchResultsReducer';
 import articleListReducer from './articleListReducer';
 import selectArticleReducer from './selectArticleReducer';
+// import { firebaseReducer } from 'react-redux-firebase';
+import { firestoreReducer } from 'redux-firestore';
 
-const indexReducers = combineReducers({
+const rootReducer = combineReducers({
   searchResults: searchResultsReducer,
-  papersById: articleListReducer,
-  currentPaperId: selectArticleReducer
+  articles: articleListReducer,
+  currentPaperId: selectArticleReducer,
+  // firebase: firebaseReducer,
+  firestore: firestoreReducer
 });
 
-export default indexReducers;
+export default rootReducer;

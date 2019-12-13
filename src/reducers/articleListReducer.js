@@ -1,7 +1,7 @@
 import constants from './../constants';
 const { initialState, types } = constants;
 
-const articleListReducer = (state = initialState.papersById, action) => {
+const articleListReducer = (state = initialState.articles, action) => {
   let newState;
   switch (action.type) {
     case types.RECEIVE_ARTICLE_FROM_FIREBASE:

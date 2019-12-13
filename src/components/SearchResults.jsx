@@ -27,44 +27,44 @@ const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
   // if (searchResults != null) { //GET RID OF THIS IF STATEMENT ONCE WORKING
 
 
-    if (Object.entries(searchResults).length != 0){
-      searchHeader = <div><h3 style={centerTextStyle}>Search Results</h3><br/></div>;
-    }
+  if (Object.entries(searchResults).length != 0){
+    searchHeader = <div><h3 style={centerTextStyle}>Search Results</h3><br/></div>;
+  }
 
   // } //GET RID OF THIS ONCE IT'S WORKING
 
-    if (searchResults.ErrorMessage) {
-      return(
-        <div>
-          <h5 style={searchError}>{searchResults.ErrorMessage}</h5>
-        </div>
-      );
-    } else {
-      return(
-        <div>
-          {searchHeader}
-          {Object.keys(searchResults).map(resultId => {
-            let result = searchResults[resultId];
-            let resultInformation = '';
-            if (result.coreId === currentPaperId) {
-              resultInformation =
-                <div style={detailsStyle}>
-                  <p>{result.year}</p>
-                  <p>{result.description}</p>
-                  <a target='_blank' href={result.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                  <button className='waves-effect waves-light btn-small'
-                    style={btnStyle}
-                    onClick={() => {dispatch(saveArticle(result))}}>Add To My Articles</button>
-                </div>;
-            }
-            return <li 
-              key={resultId} 
-              onClick={() => {dispatch(selectArticle(result.coreId));}}>
-              <em>{result.title}</em> by {result.author}{resultInformation}</li>;
-          })}
-        </div>
-      );
-    }  
+  if (searchResults.ErrorMessage) {
+    return(
+      <div>
+        <h5 style={searchError}>{searchResults.ErrorMessage}</h5>
+      </div>
+    );
+  } else {
+    return(
+      <div>
+        {searchHeader}
+        {Object.keys(searchResults).map(resultId => {
+          let result = searchResults[resultId];
+          let resultInformation = '';
+          if (result.coreId === currentPaperId) {
+            resultInformation =
+              <div style={detailsStyle}>
+                <p>{result.year}</p>
+                <p>{result.description}</p>
+                <a target='_blank' href={result.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
+                <button className='waves-effect waves-light btn-small'
+                  style={btnStyle}
+                  onClick={() => {dispatch(saveArticle(result));}}>Add To My Articles</button>
+              </div>;
+          }
+          return <li 
+            key={resultId} 
+            onClick={() => {dispatch(selectArticle(result.coreId));}}>
+            <em>{result.title}</em> by {result.author}{resultInformation}</li>;
+        })}
+      </div>
+    );
+  }  
 
 };
 

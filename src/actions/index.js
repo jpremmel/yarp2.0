@@ -1,6 +1,6 @@
 import constants from './../constants';
 const { firebaseConfig, types } = constants;
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 //added today:
 // import 'firebase/firestore';

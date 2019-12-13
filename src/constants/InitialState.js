@@ -1,6 +1,6 @@
 
 export const initialState = {
   currentPaperId: 0,
-  papersById: {},
+  articles: {},
   searchResults: {}
 };

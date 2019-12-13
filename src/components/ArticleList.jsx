@@ -48,7 +48,7 @@ const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
               <p>{article.year}</p>
               <p>{article.description}</p>
               <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-              <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {dispatch(removeArticleFromFirebase(article.id))}}>Remove from My Articles</button>
+              <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {dispatch(removeArticleFromFirebase(article.id));}}>Remove from My Articles</button>
             </div>;
         }
         return <li 
@@ -71,7 +71,7 @@ ArticleList.propTypes = {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    articleList: state.papersById,
+    articleList: state.articles,
     currentPaperId: state.currentPaperId
   };
 };

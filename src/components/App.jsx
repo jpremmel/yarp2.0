@@ -45,10 +45,10 @@ class App extends React.Component {
           </div>
         </div>
         <div className='row'>
-        <div className='col' style={logoStyle}>
-          <a target='_blank' href='https://core.ac.uk/'><img src={CoreLogo} style={imgStyle}/></a>
+          <div className='col' style={logoStyle}>
+            <a target='_blank' href='https://core.ac.uk/'><img src={CoreLogo} style={imgStyle}/></a>
+          </div>
         </div>
-      </div>
       </div>
     );
   }
