@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, compose } from 'react-redux';
 import rootReducer from './reducers';
 import middlewareLogger from './middleware/middleware-logger';
 import thunkMiddleware from 'redux-thunk';
-import { getFirestore, createFirestoreInstance } from 'redux-firestore';
+import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import constants from './constants';
 const { firebaseConfig, initialState } = constants;
@@ -22,10 +22,13 @@ const reactReduxFirebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 
-const store = createStore(
+const store = () => createStore(
   rootReducer, 
-  initialState,
-  applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({getFirebase, getFirestore}))
+  // initialState,
+  compose(
+    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirestore })),
+    reduxFirestore(firebase)
+  )
 );
 
 const rrfProps = {
