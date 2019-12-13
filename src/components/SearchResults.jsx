@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectArticle, addArticle } from './../actions';
+import { selectArticle, saveArticle } from './../actions';
 
 const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
   let detailsStyle = {
@@ -54,14 +54,7 @@ const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
                   <a target='_blank' href={result.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
                   <button className='waves-effect waves-light btn-small'
                     style={btnStyle}
-                    onClick={() => {dispatch(addArticle(
-                      result.coreId, 
-                      result.author, 
-                      result.title, 
-                      result.year, 
-                      result.downloadUrl, 
-                      result.description
-                    ))}}>Add To My Articles</button>
+                    onClick={() => {dispatch(saveArticle(result))}}>Add To My Articles</button>
                 </div>;
             }
             return <li 

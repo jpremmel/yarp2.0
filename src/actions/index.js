@@ -66,36 +66,23 @@ export const selectArticle = selectedArticle => ({
   selectedArticle
 });
 
-export const addArticle = (_coreId, _author, _title, _year, _downloadUrl, _description) => {
-  if (!_coreId) { _coreId = ''; }
-  if (!_author) { _author = ''; }
-  if (!_title) { _title = ''; }
-  if (!_year) { _year = ''; }
-  if (!_downloadUrl) { _downloadUrl = ''; }
-  if (!_description) { _description = ''; }
-  // return () => articles.push({
-  //   coreId: _coreId,
-  //   author: _author,
-  //   title: _title,
-  //   year: _year,
-  //   downloadUrl: _downloadUrl,
-  //   description: _description
-  // });
-  return (dispatch, /*getState,*/ { getFirebase, getFirestore }) => {
+export const saveArticle = (article) => {
+  if (!article.coreId) { article.coreId = ''; }
+  if (!article.author) { article.author = ''; }
+  if (!article.title) { article.title = ''; }
+  if (!article.year) { article.year = ''; }
+  if (!article.downloadUrl) { article.downloadUrl = ''; }
+  if (!article.description) { article.description = ''; }
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     //make async call to database
     const firestore = getFirestore(); //gives us a reference to our firestore database
     firestore.collection('articles').add({
-      coreId: _coreId,
-      author: _author,
-      title: _title,
-      year: _year,
-      downloadUrl: _downloadUrl,
-      description: _description
+      ...article
     }).then(() => {
-      dispatch({ type: types.CREATE_ARTICLE, coreId, author, title, year, downloadUrl, description });
+      dispatch({ type: types.SAVE_ARTICLE, article });
     }).catch((err) => {
       console.log(err);
-      dispatch({ type: types.CREATE_ARTICLE_ERROR, err });
+      dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
     })
   }
 }

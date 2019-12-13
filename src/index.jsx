@@ -9,15 +9,18 @@ import thunkMiddleware from 'redux-thunk';
 import { reduxFirestore, getFirestore, firestoreReducer, createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase, firebaseReducer } from 'react-redux-firebase';
 import constants from './constants';
-const { firebaseConfig } = constants;
+const { firebaseConfig, initialState } = constants;
 import firebase from 'firebase';
 import 'firebase/firestore';
-import createReduxStore from './createReduxStore';
+// import createReduxStore from './createReduxStore';
 
-const reactReduxFirebaseConfig = {  }; //need to figure out what goes in here
+const reactReduxFirebaseConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+};
 
 firebase.initializeApp(firebaseConfig);
-firebase.firestore()
+firebase.firestore();
 
 //Add Firebase to reducers
 const rootReducer = combineReducers({
@@ -26,17 +29,15 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer
 });
 
-export default () => {
-  return createStore(
-    rootReducer, 
-    compose(
-      reactReduxFirebase(firebase, reactReduxFirebaseConfig),
-      reduxFirestore(firebase),
-      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({getFirebase, getFirestore}))
-    )
-  );
-}
-
+const store = createStore(
+  rootReducer, 
+  initialState,
+  // compose(
+    // reactReduxFirebase(firebase, reactReduxFirebaseConfig),
+    // reduxFirestore(firebase),
+    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({getFirebase, getFirestore}))
+  // )
+);
 
 const rrfProps = {
   firebase,
