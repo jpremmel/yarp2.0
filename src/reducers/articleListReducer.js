@@ -12,11 +12,11 @@ const articleListReducer = (state = initialState.articles, action) => {
       newState = {...state};
       delete newState[action.id];
       return newState;
-    case types.SAVE_ARTICLE: //not sure what to do here
+    case types.SAVE_ARTICLE:
       console.log('Saving article', action.article);
       return state;
     case types.SAVE_ARTICLE_ERROR:
-      console.log('Save article error', action.err); //added this today
+      console.log('Save article error', action.err);
       return state;
     default:
       return state;

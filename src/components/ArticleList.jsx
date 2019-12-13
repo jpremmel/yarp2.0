@@ -25,17 +25,11 @@ const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
     marginBottom: '10px'
   };
   let header;
-
-  // if (articleList != null) { //GET RID OF THIS ONCE IT'S WORKING
-
   if (Object.entries(articleList).length != 0) {
     header = <div><h3 style={centerTextStyle}>My Articles</h3><br/></div>;
   } else {
     header = <h4 style={noArticlesStyle}>No articles yet</h4>;
   }
-
-  // } //GET RID OF THIS ONCE IT'S WORKING
-
   return(
     <div>
       {header}
@@ -58,9 +52,6 @@ const ArticleList = ({ dispatch, articleList, currentPaperId }) => {
       })}
     </div>
   );
-
-
-
 };
 
 ArticleList.propTypes = {

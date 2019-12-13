@@ -23,16 +23,9 @@ const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
     textAlign: 'center'
   };
   let searchHeader = '';
-  
-  // if (searchResults != null) { //GET RID OF THIS IF STATEMENT ONCE WORKING
-
-
   if (Object.entries(searchResults).length != 0){
     searchHeader = <div><h3 style={centerTextStyle}>Search Results</h3><br/></div>;
   }
-
-  // } //GET RID OF THIS ONCE IT'S WORKING
-
   if (searchResults.ErrorMessage) {
     return(
       <div>
@@ -65,7 +58,6 @@ const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
       </div>
     );
   }  
-
 };
 
 ArticleList.propTypes = {

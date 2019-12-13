@@ -1,17 +1,6 @@
 import constants from './../constants';
-const { firebaseConfig, types } = constants;
+const { types } = constants;
 import firebase from 'firebase/app';
-
-//added today:
-// import 'firebase/firestore';
-// import 'firebase/auth';
-
-// firebase.initializeApp(firebaseConfig);
-//initialize firestore:
-// firebase.firestore()/*.settings({ timestampsInSnapshots: true })*/;
-
-
-// const articles = firebase.database().ref('articles'); //SWITCHING TO FIRESTORE
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
@@ -87,7 +76,7 @@ export const saveArticle = (article) => {
   }
 }
 
-// export function watchFirebaseArticlesRef() { //will need to edit this to look for firestore, not 'articles'
+// export function watchFirebaseArticlesRef() {
 //   return function(dispatch) {
 //     articles.on('child_added', data => {
 //       const newArticle = Object.assign({}, data.val(), {
@@ -105,7 +94,7 @@ export const saveArticle = (article) => {
 //   };
 // }
 
-export function removeArticleFromFirebase(id) { //will need to edit this to look for firestore, not 'articles'
+export function removeArticleFromFirebase(id) {
   return (dispatch) => {
     // articles.child(id).remove();
     dispatch(removeArticle(id));
