@@ -22,13 +22,13 @@ const reactReduxFirebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 
-const store = /*() => {
-  return*/ createStore(
+const store = createStore(
     rootReducer, 
-    initialState, //may or may not need to pass in initialstate?
-    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore }))
+    initialState, //need to pass in initialstate?
+    // compose(
+      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore }))
+    // )
   );
-// }
 
 const rrfProps = {
   firebase,
