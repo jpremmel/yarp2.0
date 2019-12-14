@@ -7,7 +7,7 @@ function Header(){
   return(
     <div style={centerText}>
       <h1>YARP</h1>
-      <h3>Yepicodus Academic Research Portal</h3>
+      <h4>Yepicodus Academic Research Portal</h4>
     </div>
   );
 }
