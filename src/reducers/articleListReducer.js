@@ -1,8 +1,6 @@
 import constants from './../constants';
 const { initialState, types } = constants;
 
-console.log(initialState);
-
 const articleListReducer = (state = initialState.articles, action) => {
   let newState;
   switch (action.type) {

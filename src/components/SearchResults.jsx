@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectArticle, saveArticle } from './../actions';
 
-const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
+const SearchResults = ({ dispatch, searchResults, currentPaperId }) => {
   let detailsStyle = {
     backgroundColor: '#d9d9d9',
     borderRadius: '3px',
@@ -60,7 +60,7 @@ const ArticleList = ({ dispatch, searchResults, currentPaperId }) => {
   }  
 };
 
-ArticleList.propTypes = {
+SearchResults.propTypes = {
   searchResults: PropTypes.object,
   dispatch: PropTypes.func
 };
@@ -76,4 +76,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(ArticleList);
+export default connect(mapStateToProps)(SearchResults);

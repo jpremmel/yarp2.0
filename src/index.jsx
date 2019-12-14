@@ -26,7 +26,7 @@ const store = /*() => {
   return*/ createStore(
     rootReducer, 
     initialState, //may or may not need to pass in initialstate?
-    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ /*getFirebase,*/ getFirestore }))
+    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore }))
   );
 // }
 
