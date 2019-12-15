@@ -7,7 +7,7 @@ import rootReducer from './reducers';
 import middlewareLogger from './middleware/middleware-logger';
 import thunkMiddleware from 'redux-thunk';
 import { getFirestore, createFirestoreInstance } from 'redux-firestore';
-import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
+import { ReactReduxFirebaseProvider, /*getFirebase*/ } from 'react-redux-firebase';
 import constants from './constants';
 const { firebaseConfig, initialState } = constants;
 import firebase from 'firebase/app';
@@ -24,9 +24,9 @@ firebase.firestore();
 
 const store = createStore(
     rootReducer, 
-    initialState, //need to pass in initialstate?
+    // initialState, //need to pass in initialstate?
     // compose(
-      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore }))
+      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ /*getFirebase,*/ getFirestore }))
     // )
   );
 

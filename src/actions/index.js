@@ -63,7 +63,7 @@ export const saveArticle = (article) => {
   if (!article.year) { article.year = ''; }
   if (!article.downloadUrl) { article.downloadUrl = ''; }
   if (!article.description) { article.description = ''; }
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, { /*getFirebase,*/ getFirestore }) => {
     //make async call to database
     const firestore = getFirestore(); //gives us a reference to our firestore database
     firestore.collection('articles').add({
