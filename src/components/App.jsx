@@ -7,7 +7,7 @@ import SearchResults from './SearchResults';
 import PropTypes from 'prop-types';
 import * as actions from './../actions';
 import { connect } from 'react-redux';
-import CoreLogo from '../assets/images/core-logo.png';
+import CoreLogo from '../images/core-logo.png';
 
 class App extends React.Component {
 
