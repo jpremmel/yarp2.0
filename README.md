@@ -46,15 +46,16 @@ This app allows the user to enter a search term to browse articles from the CORE
 
 ## Technologies Used
 
-JavaScript
-React
-Redux
-Thunk
-React Router
-Materialize CSS
-HTML
-Webpack
-Firebase/Cloud Firestore
+* JavaScript
+* React
+* Redux
+* Thunk
+* React Router
+* Materialize CSS
+* HTML
+* Node.js
+* Webpack
+* Firebase/Cloud Firestore
 
 ### License
 
