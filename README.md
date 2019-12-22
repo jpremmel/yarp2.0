@@ -11,11 +11,11 @@ This app allows the user to enter a search term to browse articles from the CORE
 ## Setup/Installation Requirements
 
 * _Clone this repository_
-* _Navigate to the project directory, "yarp"_
+* _Navigate to the project directory, "yarp2.0"_
 * _Run the command "npm install"_
 * _Configure your CORE API key:_
   * _Locate your CORE API key, or go to https://core.ac.uk/services/api/ and select "Apply for a free API key" to obtain one_
-  * _In the "yarp" project directory, create a file called ".env"_
+  * _In the "yarp2.0" project directory, create a file called ".env"_
   * _Open the .env file and store your API key using the following format:_
     ```javascript
     API_KEY = your-API-key-here
