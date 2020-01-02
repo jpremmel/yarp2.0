@@ -6,6 +6,7 @@ import { firestoreConnect, useFirestoreConnect, useFirestore } from 'react-redux
 import { compose } from 'redux';
 
 const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
+  console.log('ARTICLE LIST CURRENT PAPER ID: ', currentPaperId);
 
   const firestore = useFirestore();
   useFirestoreConnect('articles');
@@ -34,16 +35,16 @@ const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
     marginRight: 'auto',
     marginBottom: '10px'
   };
-  // let header;
-  // if (Object.entries(myArticles).length != 0) {
-  //   header = <div><h3 style={centerTextStyle}>My Articles</h3><br/></div>;
-  // } else {
-  //   header = <h4 style={greyTextStyle}>No articles yet</h4>;
-  // }
+  let header;
+  myArticles ? (
+    header = <div><h3 style={centerTextStyle}>My Articles</h3><br/></div>
+  ) : (
+    header = <h4 style={greyTextStyle}>No articles yet</h4>
+  );
 
   return(
     <div>
-      {/* {header} */}
+      {header}
       {myArticles ? (
           Object.keys(myArticles).map(articleId => {
             let article = myArticles[articleId];
@@ -75,18 +76,18 @@ ArticleList.propTypes = {
   /*dispatch: PropTypes.func*/
 };
 
-// const mapStateToProps = state => {
-//   console.log(state);
-//   return {
-//     articleList: state./*firestore.data.*/articles,
-//     currentPaperId: state.currentPaperId
-//   };
-// };
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    // articleList: state./*firestore.data.*/articles,
+    currentPaperId: state.currentPaperId
+  };
+};
 
-// export default compose(
-//   connect(mapStateToProps),
-//   firestoreConnect([
-//     { collection: 'articles' }
-//   ])
-// )(ArticleList);
-export default ArticleList;
+export default compose(
+  connect(mapStateToProps)/*,
+  firestoreConnect([
+    { collection: 'articles' }
+  ])*/
+)(ArticleList);
+// export default ArticleList;
