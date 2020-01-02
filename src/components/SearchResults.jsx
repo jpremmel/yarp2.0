@@ -8,7 +8,6 @@ import { compose } from 'redux';
 const SearchResults = ({ searchResults, currentPaperId }) => {
   const firestore = useFirestore();
   useFirestoreConnect('articles');
-  const myArticles = useSelector(state => state.firestore.data.articles);
   const dispatch = useDispatch();
 
   const saveToMyArticles = useCallback(

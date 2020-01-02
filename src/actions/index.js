@@ -2,9 +2,6 @@ import constants from './../constants';
 const { types } = constants;
 import firebase from 'firebase/app';
 import 'firebase/firestore'; //trying to figure out whether I need this
-import React, { useState, useCallback } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
@@ -16,7 +13,7 @@ export function fetchSearchResults(search) {
       if (json.error) {
         console.log('Error code: ', json.error.code);
         console.log('Error message: ', json.error.message);
-        dispatch(searchError());
+        dispatch({ type: types.SEARCH_ERROR });
       } else if (json.data.length > 0) {
         let searchResults = {};
         for (let i = 0; i < json.data.length; i++) {
@@ -32,27 +29,17 @@ export function fetchSearchResults(search) {
             [newArticle.coreId]: newArticle
           });
         }
-        dispatch(receiveSearchResults(searchResults));
+        dispatch({ type: types.RECEIVE_SEARCH_RESULTS, searchResults });
       } else {
         console.log('No search results.');
-        dispatch(searchError());
+        dispatch({ type: types.SEARCH_ERROR });
       }
     }, error => {
       console.log('Error occurred. ', error);
-      dispatch(searchError());
+      dispatch({ type: types.SEARCH_ERROR });
     });
   };
 }
-
-export const requestArticles = search => ({
-  type: types.REQUEST_ARTICLES,
-  search
-});
-
-export const receiveSearchResults = searchResults => ({
-  type: types.RECEIVE_SEARCH_RESULTS,
-  searchResults
-});
 
 export const selectArticle = selectedArticle => ({
   type: types.SELECT_ARTICLE,
@@ -72,57 +59,27 @@ export const saveArticle = ({ firestore }, article) => {
       .add(article)
       .then(() => {
         console.log('Adding article to firestore: ', article);
-        dispatch({ type: types.SAVE_ARTICLE, article});
+        dispatch({ type: types.SAVE_ARTICLE, article });
       })
       .catch(err => {
         console.log('Error: ', err);
         dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
-      })
-
-    // //make async call to database
-    // const firestore = getFirestore(); //gives us a reference to our firestore database
-    // firestore.collection('articles').add({
-    //   ...article
-    // }).then(() => {
-    //   dispatch({ type: types.SAVE_ARTICLE, article });
-    // }).catch((err) => {
-    //   console.log(err);
-    //   dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
-    // })
-
+      });
   }
 }
 
-// export function watchFirebaseArticlesRef() {
-//   return function(dispatch) {
-//     articles.on('child_added', data => {
-//       const newArticle = Object.assign({}, data.val(), {
-//         id: data.key
-//       });
-//       dispatch(receiveArticleFromFirebase(newArticle));
-//     });
-//   }
-// }
-
-// export function receiveArticleFromFirebase(_article) {
-//   return {
-//     type: types.RECEIVE_ARTICLE_FROM_FIREBASE,
-//     article: _article
-//   };
-// }
-
-export function removeArticleFromFirebase(id) {
+export const removeArticleFromFirebase = ({ firestore }, id) => {
   return (dispatch) => {
-    // articles.child(id).remove();
-    dispatch(removeArticle(id));
+    firestore
+      .collection('articles')
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log('Deleting article from firestore: ', id);
+        dispatch({ type: types.REMOVE_ARTICLE, id });
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+      });
   };
 }
-
-export const removeArticle = id => ({
-  type: types.REMOVE_ARTICLE,
-  id
-});
-
-export const searchError = () => ({
-  type: types.SEARCH_ERROR
-});

@@ -6,7 +6,6 @@ import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 const ArticleList = ({ articleList, currentPaperId }) => {
-  console.log('ARTICLE LIST - CURRENT PAPER ID: ', currentPaperId);
 
   const firestore = useFirestore();
   useFirestoreConnect('articles');
@@ -14,7 +13,7 @@ const ArticleList = ({ articleList, currentPaperId }) => {
   const dispatch = useDispatch();
 
   const removeArticle = useCallback(
-    article => dispatch(removeArticleFromFirebase({ firestore }, article)),
+    articleId => dispatch(removeArticleFromFirebase({ firestore }, articleId)),
     [firestore]
   );
 
@@ -43,20 +42,26 @@ const ArticleList = ({ articleList, currentPaperId }) => {
       {myArticles ? (
           Object.keys(myArticles).map(articleId => {
             let article = myArticles[articleId];
+            console.log('ARTICLE: ', article);
             let articleInformation = '';
-            if (articleId === currentPaperId) {
+            if (article && articleId === currentPaperId) {
               articleInformation =
                 <div style={detailsStyle}>
                   <p>{article.year}</p>
                   <p>{article.description}</p>
                   <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                  <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {dispatch(removeArticleFromFirebase(articleId));}}>Remove from My Articles</button>
+                  <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
                 </div>;
             }
-            return <li 
+            if (article) {
+              return <li 
               key={articleId} 
               onClick={() => {dispatch(selectArticle(articleId));}}>
               <em>{article.title}</em> by {article.author}{articleInformation}</li>;
+            } else {
+              return null;
+            }
+
           })
         ) : (
           <h4 style={greyTextStyle}>No articles yet...</h4>
