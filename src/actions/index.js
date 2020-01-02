@@ -2,6 +2,9 @@ import constants from './../constants';
 const { types } = constants;
 import firebase from 'firebase/app';
 import 'firebase/firestore'; //trying to figure out whether I need this
+import React, { useState, useCallback } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
@@ -56,24 +59,37 @@ export const selectArticle = selectedArticle => ({
   selectedArticle
 });
 
-export const saveArticle = (article) => {
+export const saveArticle = ({ firestore }, article) => {
   if (!article.coreId) { article.coreId = ''; }
   if (!article.author) { article.author = ''; }
   if (!article.title) { article.title = ''; }
   if (!article.year) { article.year = ''; }
   if (!article.downloadUrl) { article.downloadUrl = ''; }
   if (!article.description) { article.description = ''; }
-  return (dispatch, getState, { /*getFirebase,*/ getFirestore }) => {
-    //make async call to database
-    const firestore = getFirestore(); //gives us a reference to our firestore database
-    firestore.collection('articles').add({
-      ...article
-    }).then(() => {
-      dispatch({ type: types.SAVE_ARTICLE, article });
-    }).catch((err) => {
-      console.log(err);
-      dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
-    })
+  return (dispatch) => {
+    firestore
+      .collection('articles')
+      .add(article)
+      .then(() => {
+        console.log('Adding article to firestore: ', article);
+        dispatch({ type: types.SAVE_ARTICLE, article});
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+        dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
+      })
+
+    // //make async call to database
+    // const firestore = getFirestore(); //gives us a reference to our firestore database
+    // firestore.collection('articles').add({
+    //   ...article
+    // }).then(() => {
+    //   dispatch({ type: types.SAVE_ARTICLE, article });
+    // }).catch((err) => {
+    //   console.log(err);
+    //   dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
+    // })
+
   }
 }
 

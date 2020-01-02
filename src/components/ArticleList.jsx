@@ -2,16 +2,17 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectArticle, removeArticleFromFirebase } from './../actions';
-import { firestoreConnect, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
-  console.log('ARTICLE LIST CURRENT PAPER ID: ', currentPaperId);
+const ArticleList = ({ articleList, currentPaperId }) => {
+  console.log('ARTICLE LIST - CURRENT PAPER ID: ', currentPaperId);
 
   const firestore = useFirestore();
   useFirestoreConnect('articles');
   const myArticles = useSelector(state => state.firestore.data.articles);
   const dispatch = useDispatch();
+
   const removeArticle = useCallback(
     article => dispatch(removeArticleFromFirebase({ firestore }, article)),
     [firestore]
@@ -35,16 +36,10 @@ const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
     marginRight: 'auto',
     marginBottom: '10px'
   };
-  let header;
-  myArticles ? (
-    header = <div><h3 style={centerTextStyle}>My Articles</h3><br/></div>
-  ) : (
-    header = <h4 style={greyTextStyle}>No articles yet</h4>
-  );
 
   return(
     <div>
-      {header}
+      <h3 style={centerTextStyle}>My Articles</h3><br/>
       {myArticles ? (
           Object.keys(myArticles).map(articleId => {
             let article = myArticles[articleId];
@@ -55,7 +50,7 @@ const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
                   <p>{article.year}</p>
                   <p>{article.description}</p>
                   <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                  <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {dispatch(removeArticleFromFirebase(article.id));}}>Remove from My Articles</button>
+                  <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {dispatch(removeArticleFromFirebase(articleId));}}>Remove from My Articles</button>
                 </div>;
             }
             return <li 
@@ -64,7 +59,7 @@ const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
               <em>{article.title}</em> by {article.author}{articleInformation}</li>;
           })
         ) : (
-          <h4 style={greyTextStyle}>Loading.....</h4>
+          <h4 style={greyTextStyle}>No articles yet...</h4>
         )
       }
     </div>
@@ -72,22 +67,13 @@ const ArticleList = ({ /*dispatch,*/ articleList, currentPaperId }) => {
 };
 
 ArticleList.propTypes = {
-  articleList: PropTypes.object,
-  /*dispatch: PropTypes.func*/
+  articleList: PropTypes.object
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    // articleList: state./*firestore.data.*/articles,
     currentPaperId: state.currentPaperId
   };
 };
 
-export default compose(
-  connect(mapStateToProps)/*,
-  firestoreConnect([
-    { collection: 'articles' }
-  ])*/
-)(ArticleList);
-// export default ArticleList;
+export default compose(connect(mapStateToProps))(ArticleList);
