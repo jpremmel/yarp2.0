@@ -27,10 +27,12 @@ class App extends React.Component {
       padding: '50px'
     };
     let logoStyle = {
-      textAlign: 'center'
+      textAlign: 'center',
+      width: '100%'
     };
     let imgStyle = {
-      width: '10%'
+      width: '10%',
+      maxWidth: '100px'
     };
     return(
       <div style={colStyle}>
