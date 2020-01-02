@@ -44,7 +44,7 @@ const ArticleList = ({ articleList, currentPaperId }) => {
             let article = myArticles[articleId];
             console.log('ARTICLE: ', article);
             let articleInformation = '';
-            if (article && articleId === currentPaperId) {
+            if (articleId === currentPaperId) {
               articleInformation =
                 <div style={detailsStyle}>
                   <p>{article.year}</p>
@@ -61,7 +61,6 @@ const ArticleList = ({ articleList, currentPaperId }) => {
             } else {
               return null;
             }
-
           })
         ) : (
           <h4 style={greyTextStyle}>No articles yet...</h4>

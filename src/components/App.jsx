@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import SearchForm from './SearchForm';
 import ArticleList from './ArticleList';
+import AccountManager from './AccountManager';
 import 'materialize-css/dist/css/materialize.min.css';
 import SearchResults from './SearchResults';
 import PropTypes from 'prop-types';
@@ -14,13 +15,6 @@ class App extends React.Component {
   constructor(props){
     super(props);
   }
-
-  // componentWillMount() {
-  //   console.log('COMPONENT WILL MOUNT');
-  //   const { dispatch } = this.props;
-    // const { watchFirebaseArticlesRef } = actions;
-    // dispatch(watchFirebaseArticlesRef());
-  //}
 
   render() {
     let colStyle = {
@@ -40,9 +34,10 @@ class App extends React.Component {
         <div className='row'>
           <div style={colStyle} className='col s6'>
             <SearchForm/>
-            <SearchResults />
+            <SearchResults/>
           </div>
           <div style={colStyle} className='col s6'>
+            <AccountManager/>
             <ArticleList/>
           </div>
         </div>
