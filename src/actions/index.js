@@ -6,7 +6,7 @@ import 'firebase/firestore'; //trying to figure out whether I need this
 export function fetchSearchResults(search) {
   return function (dispatch) {
     search = search.replace(' ', '_');
-    return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=10&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
+    return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=30&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
       response => response.json(),
       error => console.log('Error occurred. ', error)
     ).then(function (json) {
