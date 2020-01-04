@@ -1,19 +1,17 @@
 import React from 'react';
 import SignedIn from './SignedIn';
 import SignedOut from './SignedOut';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const AccountManager = () => {
-  let greyStyle = {
-    backgroundColor: '#d9d9d9',
-    borderRadius: '3px',
-    padding: '15px'
-  };
   return (
-    <div style={greyStyle}>
-      Account Manager Here
-      <SignedIn/>
-      <SignedOut/>
-    </div>
+    <nav className='nav-wrapper'>
+      <div className='container'>
+        <SignedIn/>
+        <SignedOut/>
+      </div>
+    </nav>
   );
 };
 

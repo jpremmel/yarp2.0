@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom';
 import App from './components/App';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, compose } from 'react-redux';
@@ -40,7 +41,9 @@ const rrfProps = {
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-      <App />
+      <HashRouter>
+        <App />
+      </HashRouter>
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById('react-app-root')

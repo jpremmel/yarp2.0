@@ -1,10 +1,12 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const SignedOut = () => {
   return (
-    <div>
-      Signed out content: Create account option, Sign in option
-    </div>
+    <ul className='right'>
+      <li><NavLink to='/sign-in'>Sign In</NavLink></li>
+      <li><NavLink to='/create-acct'>Create Account</NavLink></li>
+    </ul>
   );
 };
 

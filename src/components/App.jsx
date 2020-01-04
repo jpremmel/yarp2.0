@@ -1,14 +1,12 @@
 import React from 'react';
-import Header from './Header';
-import SearchForm from './SearchForm';
-import ArticleList from './ArticleList';
 import AccountManager from './AccountManager';
+import Homepage from './Homepage';
+import CreateAcctPage from './CreateAcctPage';
+import SignInPage from './SignInPage';
 import 'materialize-css/dist/css/materialize.min.css';
-import SearchResults from './SearchResults';
 import PropTypes from 'prop-types';
-import * as actions from './../actions';
 import { connect } from 'react-redux';
-import CoreLogo from '../images/core-logo.png';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -17,35 +15,14 @@ class App extends React.Component {
   }
 
   render() {
-    let colStyle = {
-      padding: '50px'
-    };
-    let logoStyle = {
-      textAlign: 'center',
-      width: '100%'
-    };
-    let imgStyle = {
-      width: '10%',
-      maxWidth: '100px'
-    };
     return(
-      <div style={colStyle}>
-        <Header/>
-        <div className='row'>
-          <div style={colStyle} className='col s6'>
-            <SearchForm/>
-            <SearchResults/>
-          </div>
-          <div style={colStyle} className='col s6'>
-            <AccountManager/>
-            <ArticleList/>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col' style={logoStyle}>
-            <a target='_blank' href='https://core.ac.uk/'><img src={CoreLogo} style={imgStyle}/></a>
-          </div>
-        </div>
+      <div>
+        <AccountManager/>
+        <Switch>
+          <Route exact path='/' render={() => <Homepage/>}/>
+          <Route path='/create-acct' render={() => <CreateAcctPage/>}/>
+          <Route path='/sign-in' render={() => <SignInPage/>}/>
+        </Switch>
       </div>
     );
   }
