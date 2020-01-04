@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SignedIn = () => {
+const SignedInLinks = () => {
   let linkStyle = {
     color: 'black'
   };
@@ -12,4 +12,4 @@ const SignedIn = () => {
   );
 };
 
-export default SignedIn;
+export default SignedInLinks;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SignedOut = () => {
+const SignedOutLinks = () => {
   let linkStyle = {
     color: 'black'
   };
@@ -13,4 +13,4 @@ const SignedOut = () => {
   );
 };
 
-export default SignedOut;
+export default SignedOutLinks;
