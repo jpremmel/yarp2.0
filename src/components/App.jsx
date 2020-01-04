@@ -1,5 +1,6 @@
 import React from 'react';
 import AccountManager from './AccountManager';
+import Header from './Header';
 import Homepage from './Homepage';
 import CreateAcctPage from './CreateAcctPage';
 import SignInPage from './SignInPage';
@@ -18,6 +19,7 @@ class App extends React.Component {
     return(
       <div>
         <AccountManager/>
+        <Header/>
         <Switch>
           <Route exact path='/' render={() => <Homepage/>}/>
           <Route path='/create-acct' render={() => <CreateAcctPage/>}/>

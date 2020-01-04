@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import SearchForm from './SearchForm';
 import ArticleList from './ArticleList';
 import SearchResults from './SearchResults';
@@ -11,7 +10,6 @@ const Homepage = () => {
   };
   return (
     <div className='container'>
-    <Header/>
     <div className='row'>
       <div style={colStyle} className='col s6'>
         <SearchForm/>
