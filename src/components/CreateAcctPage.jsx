@@ -28,7 +28,7 @@ const CreateAcctPage = () => {
           placeholder='Password'
         />
       </div>
-      <button style={btnStyle} className='waves-effect waves-light btn-small'>Create Account</button>
+      <button style={btnStyle} className='waves-effect waves-light btn-small'><i className='material-icons left'>person_add</i>Create Account</button>
     </form>
   </div>
   );

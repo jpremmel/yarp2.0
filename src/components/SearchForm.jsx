@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchSearchResults } from './../actions';
 
+
 function SearchForm({ dispatch }){
   let input;
   let btnStyle = {
@@ -27,7 +28,7 @@ function SearchForm({ dispatch }){
             placeholder='Search for an article'
             ref={node => { input = node; }} />
         </div>
-        <button style={btnStyle} className='waves-effect waves-light btn-small'>Search</button>
+        <button style={btnStyle} className='waves-effect waves-light btn-small'><i className='material-icons left'>search</i>Search</button>
       </form>
     </div>
   );

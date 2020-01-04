@@ -28,7 +28,7 @@ const SignInPage = () => {
             placeholder='Password'
           />
         </div>
-        <button style={btnStyle} className='waves-effect waves-light btn-small'>Sign In</button>
+        <button style={btnStyle} className='waves-effect waves-light btn-small'><i className='material-icons left'>person</i>Sign In</button>
       </form>
     </div>
   );
