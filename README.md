@@ -8,6 +8,13 @@
 
 This app allows the user to enter a search term to browse articles from the CORE API (https://core.ac.uk/). The user can thens save an article from the search results to the "My Articles" list. The user can also view the article's details or remove articles from their list.
 
+React component diagram:
+
+<img src="yarp-react-components.png"
+     alt="Diagram of YARP react components"
+     style="float: center" 
+     height= "400" /> 
+
 ## Setup/Installation Requirements
 
 * Clone this repository
