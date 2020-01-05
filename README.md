@@ -6,7 +6,7 @@
 
 ## Description
 
-This app allows the user to enter a search term to browse articles from the <a href="https://core.ac.uk/" target="_blank">CORE API</a>. The user can thens save an article from the search results to the "My Articles" list. The user can also view the article's details or remove articles from their list.
+This app allows the user to enter a search term to browse articles from the [CORE API](https://core.ac.uk/ "CORE Homepage"). The user can thens save an article from the search results to the "My Articles" list. The user can also view the article's details or remove articles from their list.
 
 React component structure:
 
