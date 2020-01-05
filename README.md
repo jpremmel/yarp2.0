@@ -1,14 +1,14 @@
 # _YARP_
 
-#### _Yepicodus Academic Research Portal, 2 Jan 2020_
+#### _Yepicodus Academic Research Portal, 5 Jan 2020_
 
 #### By _**Jacqueline Remmel and Mike McShane**_
 
 ## Description
 
-This app allows the user to enter a search term to browse articles from the CORE API (https://core.ac.uk/). The user can thens save an article from the search results to the "My Articles" list. The user can also view the article's details or remove articles from their list.
+This app allows the user to enter a search term to browse articles from the [CORE API](https://core.ac.uk/ "CORE Homepage"). The user can thens save an article from the search results to the "My Articles" list. The user can also view the article's details or remove articles from their list.
 
-React component diagram:
+React component structure:
 
 <img src="yarp-react-components.png"
      alt="Diagram of YARP react components"
