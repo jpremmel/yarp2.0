@@ -1,11 +1,11 @@
 import constants from './../constants';
-const { initialState, types } = constants;
+const { initialState } = constants;
 
 const searchResultsReducer = (state = initialState.searchResults, action) => {
   switch (action.type) {
-  case types.RECEIVE_SEARCH_RESULTS:
+  case 'RECEIVE_SEARCH_RESULTS':
     return action.searchResults;
-  case types.SEARCH_ERROR:
+  case 'SEARCH_ERROR':
     return { 'ErrorMessage': 'Search unsuccessful. Please try again.' };
   default:
     return state;

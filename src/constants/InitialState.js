@@ -2,7 +2,8 @@
 export const initialState = {
   currentPaperId: 0,
   articles: {},
-  searchResults: {}
+  searchResults: {},
+  authError: null
 };
 
 // export const initialState = {

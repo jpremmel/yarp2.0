@@ -1,7 +1,5 @@
-import constants from './../constants';
-const { types } = constants;
 import firebase from 'firebase/app';
-import 'firebase/firestore'; //trying to figure out whether I need this
+import 'firebase/firestore'; //not sure whether I need this
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
@@ -13,7 +11,7 @@ export function fetchSearchResults(search) {
       if (json.error) {
         console.log('Error code: ', json.error.code);
         console.log('Error message: ', json.error.message);
-        dispatch({ type: types.SEARCH_ERROR });
+        dispatch({ type: 'SEARCH_ERROR' });
       } else if (json.data.length > 0) {
         let searchResults = {};
         for (let i = 0; i < json.data.length; i++) {
@@ -29,20 +27,20 @@ export function fetchSearchResults(search) {
             [newArticle.coreId]: newArticle
           });
         }
-        dispatch({ type: types.RECEIVE_SEARCH_RESULTS, searchResults });
+        dispatch({ type: 'RECEIVE_SEARCH_RESULTS', searchResults });
       } else {
         console.log('No search results.');
-        dispatch({ type: types.SEARCH_ERROR });
+        dispatch({ type: 'SEARCH_ERROR' });
       }
     }, error => {
       console.log('Error occurred. ', error);
-      dispatch({ type: types.SEARCH_ERROR });
+      dispatch({ type: 'SEARCH_ERROR' });
     });
   };
 }
 
 export const selectArticle = selectedArticle => ({
-  type: types.SELECT_ARTICLE,
+  type: 'SELECT_ARTICLE',
   selectedArticle
 });
 
@@ -59,11 +57,11 @@ export const saveArticle = ({ firestore }, article) => {
       .add(article)
       .then(() => {
         console.log('Adding article to firestore: ', article);
-        dispatch({ type: types.SAVE_ARTICLE, article });
+        dispatch({ type: 'SAVE_ARTICLE', article });
       })
       .catch(err => {
         console.log('Error: ', err);
-        dispatch({ type: types.SAVE_ARTICLE_ERROR, err });
+        dispatch({ type: 'SAVE_ARTICLE_ERROR', err });
       });
   }
 }
@@ -76,7 +74,7 @@ export const removeArticleFromFirebase = ({ firestore }, id) => {
       .delete()
       .then(() => {
         console.log('Deleting article from firestore: ', id);
-        dispatch({ type: types.REMOVE_ARTICLE, id });
+        dispatch({ type: 'REMOVE_ARTICLE', id });
       })
       .catch(err => {
         console.log('Error: ', err);
