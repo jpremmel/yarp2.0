@@ -5,10 +5,10 @@ import CoreLogo from '../images/core-logo.png';
 import { connect } from 'react-redux';
 
 const Navbar = () => {
-  let navStyle = {
+  const navStyle = {
     backgroundColor: '#f8f9fa'
   };
-  let imgStyle = {
+  const imgStyle = {
     maxHeight: '30px'
   };
   return (
@@ -22,4 +22,11 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

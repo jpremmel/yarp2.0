@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectArticle, removeArticleFromFirebase } from './../actions';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-const ArticleList = ({ articleList, currentPaperId }) => {
+const ArticleList = ({ currentPaperId }) => {
 
   const firestore = useFirestore();
   useFirestoreConnect('articles');
@@ -17,19 +16,19 @@ const ArticleList = ({ articleList, currentPaperId }) => {
     [firestore]
   );
 
-  let greyTextStyle = {
+  const greyTextStyle = {
     color: '#d9d9d9',
     textAlign: 'center'
   };
-  let centerTextStyle = {
+  const centerTextStyle = {
     textAlign: 'center'
   };
-  let detailsStyle = {
+  const detailsStyle = {
     backgroundColor: '#d9d9d9',
     borderRadius: '3px',
     padding: '15px'
   };
-  let btnStyle = {
+  const btnStyle = {
     display: 'block',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -42,7 +41,6 @@ const ArticleList = ({ articleList, currentPaperId }) => {
       {myArticles ? (
           Object.keys(myArticles).map(articleId => {
             let article = myArticles[articleId];
-            console.log('ARTICLE: ', article);
             let articleInformation = '';
             if (articleId === currentPaperId) {
               articleInformation =
@@ -70,11 +68,7 @@ const ArticleList = ({ articleList, currentPaperId }) => {
   );
 };
 
-ArticleList.propTypes = {
-  articleList: PropTypes.object
-};
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currentPaperId: state.currentPaperId
   };

@@ -13,7 +13,7 @@ import constants from './constants';
 const { firebaseConfig, initialState } = constants;
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-// import 'firebase/auth';
+import 'firebase/auth';
 
 const reactReduxFirebaseConfig = {
   userProfile: 'users',

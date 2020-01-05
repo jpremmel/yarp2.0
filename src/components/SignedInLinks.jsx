@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const SignedInLinks = () => {
-  let linkStyle = {
+  const linkStyle = {
     color: 'black'
   };
   return (

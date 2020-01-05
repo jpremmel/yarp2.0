@@ -2,10 +2,9 @@ import React from 'react';
 import SearchForm from './SearchForm';
 import ArticleList from './ArticleList';
 import SearchResults from './SearchResults';
-import * as actions from './../actions';
 
 const Homepage = () => {
-  let colStyle = {
+  const colStyle = {
     padding: '50px'
   };
   return (

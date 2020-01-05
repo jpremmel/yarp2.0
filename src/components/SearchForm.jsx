@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchSearchResults } from './../actions';
 
-
-function SearchForm({ dispatch }){
-  let input;
-  let btnStyle = {
+const SearchForm = ({ dispatch }) => {
+  let input = '';
+  const btnStyle = {
     display: 'block',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -32,7 +31,7 @@ function SearchForm({ dispatch }){
       </form>
     </div>
   );
-}
+};
 
 SearchForm.propTypes = {
   dispatch: PropTypes.func

@@ -1,14 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function Header(){
-  let centerColStyle = {
-    textAlign: 'center',
-    // display: 'block',
-    // marginLeft: 'auto',
-    // marginRight: 'auto'
+const Header = () => {
+  const centerColStyle = {
+    textAlign: 'center'
   };
-  let linkStyle = {
+  const linkStyle = {
     color: 'black'
   };
   return(
@@ -21,7 +18,6 @@ function Header(){
       </div>
     </div>
   );
-}
-
+};
 
 export default Header;

@@ -1,14 +1,14 @@
 import React from 'react';
 
 const SignInPage = () => {
-  let formStyle = {
+  const formStyle = {
     display: 'block',
     marginTop: '50px',
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '50%'
   };
-  let btnStyle = {
+  const btnStyle = {
     display: 'block',
     marginLeft: 'auto',
     marginRight: 'auto'

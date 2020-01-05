@@ -15,21 +15,21 @@ const SearchResults = ({ searchResults, currentPaperId }) => {
     [firestore]
   );
 
-  let detailsStyle = {
+  const detailsStyle = {
     backgroundColor: '#d9d9d9',
     borderRadius: '3px',
     padding: '15px'
   };
-  let btnStyle = {
+  const btnStyle = {
     display: 'block',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: '10px'
   };
-  let centerTextStyle = {
+  const centerTextStyle = {
     textAlign: 'center'
   };
-  let searchError = {
+  const searchError = {
     color: '#d9d9d9',
     textAlign: 'center'
   };
@@ -75,7 +75,7 @@ SearchResults.propTypes = {
   searchResults: PropTypes.object
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let results = null;
   if (state.searchResults != null) {
     results = state.searchResults;
