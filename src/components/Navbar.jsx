@@ -4,7 +4,7 @@ import SignedOutLinks from './SignedOutLinks';
 import CoreLogo from '../images/core-logo.png';
 import { connect } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = (/*{ firebase }*/) => {
   const navStyle = {
     backgroundColor: '#f8f9fa'
   };

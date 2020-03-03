@@ -9,7 +9,7 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    resolve(__dirname, "src") + "/index.jsx"
+    resolve(__dirname, 'src') + '/index.jsx'
   ],
 
   output: {
@@ -41,16 +41,16 @@ module.exports = {
           },
           {
             test: /\.jsx?$/,
-            loader: "babel-loader",
+            loader: 'babel-loader',
             exclude: /node_modules/,
             options: {
                 presets: [
-                    ["@babel/preset-env", {"modules": false}],
-                    "@babel/preset-react",
+                    ['@babel/preset-env', {'modules': false}],
+                    '@babel/preset-react',
                 ],
                 plugins: [
-                  "react-hot-loader/babel",
-                  "styled-jsx/babel"
+                  'react-hot-loader/babel',
+                  'styled-jsx/babel'
                 ]
             }
           },
@@ -66,15 +66,15 @@ module.exports = {
           },
           {
             test: /\.jsx?$/,
-            enforce: "pre",
-            loader: "eslint-loader",
+            enforce: 'pre',
+            loader: 'eslint-loader',
             exclude: [
               /node_modules/,
               /core-logo.png/
             ],
             options: {
               emitWarning: true,
-              configFile: "./.eslintrc.json"
+              configFile: './.eslintrc.json'
             }
           }
       ]
@@ -88,7 +88,8 @@ module.exports = {
       template:'template.ejs',
       appMountId: 'react-app-root',
       title: 'YARP',
-      filename: resolve(__dirname, "build", "index.html"),
-    }),
+      filename: resolve(__dirname, 'build', 'index.html'),
+      favicon: './src/favicon.ico'
+    })
   ]
 };
