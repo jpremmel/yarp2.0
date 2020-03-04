@@ -1,7 +1,6 @@
-export const signIn = (credentials) => {
-  return (dispatch, getState/*, { getFirebase }*/) => { //need to figure this part out - pass firebase instance from component upon form submission (like I do when saving an article to firestore from search results list)?
-    // const firebase = getFirebase(); //...probably not going to use this then. It's currently throwing an error.
 
+export const signIn = ({ credentials, firebase }) => {
+  return (dispatch, getState) => {
     firebase.auth().signInWithEmailAndPassword(
       credentials.email,
       credentials.password
@@ -9,6 +8,34 @@ export const signIn = (credentials) => {
       dispatch({ type: 'LOGIN_SUCCESS' });
     }).catch((err) => {
       dispatch({ type: 'LOGIN_ERROR', err });
-    })
+    });
+  };
+};
+
+export const signOut = (firebase) => {
+  return (dispatch, getState) => {
+    firebase.auth().signOut().then(() => {
+      dispatch({ type: 'SIGNOUT_SUCCESS' });
+    });
+  };
+};
+
+export const signUp = (newUser, firebase) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firebase.auth().createUserWithEmailAndPassword(
+      newUser.email,
+      newUser.password
+    )
+      // .then(resp => firestore.collection('users').doc(resp.user.uid).set({
+      //   firstName: newUser.firstName,
+      //   lastName: newUser.lastName
+      // }))
+      .then(() => {
+        dispatch({ type: 'SIGNUP_SUCCESS' });
+      })
+      .catch((err) => {
+        dispatch({ type: 'SIGNUP_ERROR', err });
+      })
   };
 };

@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import App from './components/App';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider, compose } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
 import rootReducer from './reducers';
 import middlewareLogger from './middleware/middleware-logger';
 import thunkMiddleware from 'redux-thunk';
-import { getFirestore, createFirestoreInstance } from 'redux-firestore';
-import { ReactReduxFirebaseProvider, /*getFirebase*/ } from 'react-redux-firebase';
+import { getFirestore, createFirestoreInstance, reduxFirestore } from 'redux-firestore';
+import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import constants from './constants';
 const { firebaseConfig, initialState } = constants;
 import firebase from 'firebase/app';
@@ -21,14 +21,16 @@ const reactReduxFirebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+//firebase.analytics(); ????
 firebase.firestore();
 
 const store = createStore(
     rootReducer, 
     // initialState, //need to pass in initialstate?
-    // compose(
-      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ /*getFirebase,*/ getFirestore }))
-    // )
+    compose(
+      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
+      reduxFirestore(firebase), //need this line to get access to firestore via getFirestore function
+    )
   );
 
 const rrfProps = {

@@ -3,8 +3,15 @@ import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 import CoreLogo from '../images/core-logo.png';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
 
-const Navbar = (/*{ firebase }*/) => {
+const Navbar = (props) => {
+  const { auth, profile } = props;
+  console.log('Profile: ', profile);
+  const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
+
   const navStyle = {
     backgroundColor: '#f8f9fa'
   };
@@ -15,18 +22,18 @@ const Navbar = (/*{ firebase }*/) => {
     <nav className='nav-wrapper' style={navStyle}>
       <div className='container'>
         <a target='_blank' href='https://core.ac.uk/' className='brand-logo'><img src={CoreLogo} style={imgStyle}/></a>
-        <SignedInLinks/>
-        <SignedOutLinks/>
+        {links}
       </div>
     </nav>
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
+const mapStateToProps = (state) => ({
+  auth: state.firebase.auth,
+  profile: state.firebase.profile
+});
 
-  };
-};
-
-export default connect(mapStateToProps)(Navbar);
+export default compose(
+  firebaseConnect(),
+  connect(mapStateToProps)
+)(Navbar);

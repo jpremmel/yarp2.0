@@ -7,7 +7,9 @@ import SignInPage from './SignInPage';
 import 'materialize-css/dist/css/materialize.min.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { Switch, Route, withRouter/*, BrowserRouter ??? */ } from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -16,22 +18,35 @@ class App extends React.Component {
   }
 
   render() {
-    return(
-      <div>
-        <Navbar/>
-        <Header/>
-        <Switch>
-          <Route exact path='/' render={() => <Homepage/>}/>
-          <Route path='/create-acct' render={() => <CreateAcctPage/>}/>
-          <Route path='/sign-in' render={() => <SignInPage/>}/>
-        </Switch>
-      </div>
-    );
+    const { auth } = this.props;
+    //Only render App if auth is loaded
+    if (auth.isLoaded) {
+      return(
+        <div>
+          <Navbar/>
+          <Header/>
+          <Switch>
+            <Route exact path='/' render={() => <Homepage/>}/>
+            <Route path='/create-acct' render={() => <CreateAcctPage/>}/>
+            <Route path='/sign-in' render={() => <SignInPage/>}/>
+          </Switch>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
-App.propTypes = {
-  dispatch: PropTypes.func
-};
+// App.propTypes = {
+//   dispatch: PropTypes.func
+// };
 
-export default connect()(App);
+const mapStateToProps = (state) => ({
+  auth: state.firebase.auth
+});
+
+export default compose (
+  firebaseConnect(),
+  connect(mapStateToProps)
+)(App);

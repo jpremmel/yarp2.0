@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../actions/authActions';
 
-const SignInPage = () => {
+const SignInPage = (props) => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Submitting email: ', email);
+    console.log('Submitting password: ', password);
+    const { firebase } = props;
+    const credentials = {
+      email: email,
+      password: password
+    };
+    const authData = {
+      firebase,
+      credentials
+    };
+    props.signIn(authData);
+  };
+
   const formStyle = {
     display: 'block',
     marginTop: '50px',
@@ -13,25 +39,47 @@ const SignInPage = () => {
     marginLeft: 'auto',
     marginRight: 'auto'
   };
-  return (
-    <div className='container'>
-      <form style={formStyle}>
-        <div className='input-field'>
-          <input
-            type='email'
-            placeholder='Email address'
-          />
-        </div>
-        <div className='input-field'>
-          <input
-            type='password'
-            placeholder='Password'
-          />
-        </div>
-        <button style={btnStyle} className='waves-effect waves-light btn-small'><i className='material-icons left'>person</i>Sign In</button>
-      </form>
-    </div>
-  );
+
+  if (props.auth.uid) {
+    return (
+      <Redirect to='/'/>
+    );
+  } else {
+    return (
+      <div className='container'>
+        <form style={formStyle} onSubmit={handleSubmit}>
+          <div className='input-field'>
+            <input
+              type='email'
+              placeholder='Email address'
+              onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+          <div className='input-field'>
+            <input
+              type='password'
+              placeholder='Password'
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          <button type='submit' style={btnStyle} className='waves-effect waves-light btn-small'><i className='material-icons left'>person</i>Sign In</button>
+        </form>
+      </div>
+    );
+  }
 };
 
-export default SignInPage;
+const mapStateToProps = (state) => ({
+  auth: state.firebase.auth,
+  // authError: state.auth.authError
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  signIn: (authData) => dispatch(signIn(authData))
+});
+
+//firebaseConnect provides Firebase object with auth method
+export default compose(
+  firebaseConnect(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(SignInPage);
