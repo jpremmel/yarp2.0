@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
@@ -10,6 +10,11 @@ const SignInPage = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [signInError, setSignInError] = useState(props.authError);
+
+  useEffect(() => {
+    setSignInError(props.authError);
+  }, [props.authError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +32,8 @@ const SignInPage = (props) => {
     props.signIn(authData);
   };
 
+  // const { authError } = props;
+
   const formStyle = {
     display: 'block',
     marginTop: '50px',
@@ -38,6 +45,10 @@ const SignInPage = (props) => {
     display: 'block',
     marginLeft: 'auto',
     marginRight: 'auto'
+  };
+  const errorStyle = {
+    color: 'red',
+    textAlign: 'center'
   };
 
   if (props.auth.uid) {
@@ -63,6 +74,9 @@ const SignInPage = (props) => {
             />
           </div>
           <button type='submit' style={btnStyle} className='waves-effect waves-light btn-small'><i className='material-icons left'>person</i>Sign In</button>
+          <div style={errorStyle}>
+            { props.authError ? <p><strong>{props.authError}</strong></p> : null }
+          </div>
         </form>
       </div>
     );
@@ -71,7 +85,7 @@ const SignInPage = (props) => {
 
 const mapStateToProps = (state) => ({
   auth: state.firebase.auth,
-  // authError: state.auth.authError
+  authError: state.auth
 });
 
 const mapDispatchToProps = (dispatch) => ({
