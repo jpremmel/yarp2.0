@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import App from './components/App';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import rootReducer from './reducers';
 import middlewareLogger from './middleware/middleware-logger';
 import thunkMiddleware from 'redux-thunk';
 import { getFirestore, createFirestoreInstance, reduxFirestore } from 'redux-firestore';
-import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
+import { ReactReduxFirebaseProvider, getFirebase, isLoaded } from 'react-redux-firebase';
 import constants from './constants';
 const { firebaseConfig, initialState } = constants;
 import firebase from 'firebase/app';
@@ -40,11 +40,22 @@ const rrfProps = {
   createFirestoreInstance
 };
 
+const AuthIsLoaded = ({ children }) => {
+  const auth = useSelector(state => state.firebase.auth);
+  if (!isLoaded(auth)) {
+    return <div>Loading...</div>;
+  } else {
+    return children;
+  }
+};
+
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
       <HashRouter>
-        <App />
+        <AuthIsLoaded>
+          <App />
+        </AuthIsLoaded>
       </HashRouter>
     </ReactReduxFirebaseProvider>
   </Provider>,

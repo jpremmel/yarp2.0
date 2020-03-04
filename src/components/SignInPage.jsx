@@ -32,8 +32,6 @@ const SignInPage = (props) => {
     props.signIn(authData);
   };
 
-  // const { authError } = props;
-
   const formStyle = {
     display: 'block',
     marginTop: '50px',
