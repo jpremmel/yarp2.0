@@ -4,7 +4,7 @@ import { selectArticle, removeArticleFromFirebase } from './../actions';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-const ArticleList = ({ currentPaperId }) => {
+const ArticleList = (props) => {
 
   const firestore = useFirestore();
   useFirestoreConnect('articles');
@@ -35,42 +35,48 @@ const ArticleList = ({ currentPaperId }) => {
     marginBottom: '10px'
   };
 
-  return(
-    <div>
-      <h3 style={centerTextStyle}>My Articles</h3><br/>
-      {myArticles ? (
-          Object.keys(myArticles).map(articleId => {
-            let article = myArticles[articleId];
-            let articleInformation = '';
-            if (articleId === currentPaperId) {
-              articleInformation =
-                <div style={detailsStyle}>
-                  <p>{article.year}</p>
-                  <p>{article.description}</p>
-                  <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                  <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
-                </div>;
-            }
-            if (article) {
-              return <li 
-              key={articleId} 
-              onClick={() => {dispatch(selectArticle(articleId));}}>
-              <em>{article.title}</em> by {article.author}{articleInformation}</li>;
-            } else {
-              return null;
-            }
-          })
-        ) : (
-          <h4 style={greyTextStyle}>No articles yet...</h4>
-        )
-      }
-    </div>
-  );
+  const { auth } = props;
+  if (auth.uid) {
+    return(
+      <div>
+        <h3 style={centerTextStyle}>My Articles</h3><br/>
+        {myArticles ? (
+            Object.keys(myArticles).map(articleId => {
+              let article = myArticles[articleId];
+              let articleInformation = '';
+              if (articleId === props.currentPaperId) {
+                articleInformation =
+                  <div style={detailsStyle}>
+                    <p>{article.year}</p>
+                    <p>{article.description}</p>
+                    <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
+                    <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
+                  </div>;
+              }
+              if (article) {
+                return <li 
+                key={articleId} 
+                onClick={() => {dispatch(selectArticle(articleId));}}>
+                <em>{article.title}</em> by {article.author}{articleInformation}</li>;
+              } else {
+                return null;
+              }
+            })
+          ) : (
+            <h4 style={greyTextStyle}>No articles yet...</h4>
+          )
+        }
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 const mapStateToProps = (state) => {
   return {
-    currentPaperId: state.currentPaperId
+    currentPaperId: state.currentPaperId,
+    auth: state.firebase.auth
   };
 };
 

@@ -3,7 +3,7 @@ export const initialState = {
   currentPaperId: 0,
   articles: {},
   searchResults: {},
-  authError: null
+  auth: null
 };
 
 // export const initialState = {

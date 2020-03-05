@@ -19,7 +19,7 @@ class App extends React.Component {
 
   render() {
     const { auth } = this.props;
-    //Only render App if auth is loaded
+    //Only render App if auth is loaded - might be able to get rid of this now that I'm doing this in index.jsx???
     if (auth.isLoaded) {
       return(
         <div>

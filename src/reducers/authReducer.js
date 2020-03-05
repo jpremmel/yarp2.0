@@ -1,7 +1,7 @@
 import constants from './../constants';
 const { initialState } = constants;
 
-const authReducer = (state = initialState.authError, action) => {
+const authReducer = (state = initialState.auth, action) => {
   switch(action.type) {
     case 'LOGIN_ERROR':
       console.log('Login failed', action.err);

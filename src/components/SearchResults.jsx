@@ -5,7 +5,7 @@ import { selectArticle, saveArticle } from './../actions';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-const SearchResults = ({ searchResults, currentPaperId }) => {
+const SearchResults = ({ searchResults, currentPaperId, auth}) => {
   const firestore = useFirestore();
   useFirestoreConnect('articles');
   const dispatch = useDispatch();
@@ -49,6 +49,12 @@ const SearchResults = ({ searchResults, currentPaperId }) => {
         {searchHeader}
         {Object.keys(searchResults).map(resultId => {
           let result = searchResults[resultId];
+          let saveToMyArticlesButton;
+          if (auth.uid) {
+            saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
+            style={btnStyle}
+            onClick={() => {saveToMyArticles(result);}}>Add To My Articles</button>;
+          }
           let resultInformation = '';
           if (result.coreId === currentPaperId) {
             resultInformation =
@@ -56,9 +62,7 @@ const SearchResults = ({ searchResults, currentPaperId }) => {
                 <p>{result.year}</p>
                 <p>{result.description}</p>
                 <a target='_blank' href={result.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                <button className='waves-effect waves-light btn-small'
-                  style={btnStyle}
-                  onClick={() => {saveToMyArticles(result);}}>Add To My Articles</button>
+                {saveToMyArticlesButton}
               </div>;
           }
           return <li 
@@ -82,7 +86,8 @@ const mapStateToProps = (state) => {
   }
   return {
     searchResults: results,
-    currentPaperId: state.currentPaperId
+    currentPaperId: state.currentPaperId,
+    auth: state.firebase.auth
   };
 };
 
