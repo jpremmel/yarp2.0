@@ -20,17 +20,18 @@ export const signOut = (firebase) => {
   };
 };
 
-export const signUp = (newUser, firebase) => {
+export const signUp = ({ credentials, firebase }) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firebase.auth().createUserWithEmailAndPassword(
-      newUser.email,
-      newUser.password
+      credentials.email,
+      credentials.password
     )
-      // .then(resp => firestore.collection('users').doc(resp.user.uid).set({
-      //   firstName: newUser.firstName,
-      //   lastName: newUser.lastName
-      // }))
+      .then((response) => { //add new firebase user to firestore users collection
+        return firestore.collection('users').doc(response.user.uid).set({
+          email: credentials.email
+        })
+      })
       .then(() => {
         dispatch({ type: 'SIGNUP_SUCCESS' });
       })

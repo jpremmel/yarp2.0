@@ -18,8 +18,6 @@ const SignInPage = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting email: ', email);
-    console.log('Submitting password: ', password);
     const { firebase } = props;
     const credentials = {
       email: email,
