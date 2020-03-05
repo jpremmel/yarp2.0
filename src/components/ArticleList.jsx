@@ -35,11 +35,13 @@ const ArticleList = (props) => {
     marginBottom: '10px'
   };
 
-  const { auth } = props;
+  const { auth, profile } = props;
   if (auth.uid) {
     return(
       <div>
-        <h3 style={centerTextStyle}>My Articles</h3><br/>
+        <h3 style={centerTextStyle}>My Articles</h3>
+        <p style={centerTextStyle}>Currently signed in: {profile.email}</p>
+        <br/>
         {myArticles ? (
             Object.keys(myArticles).map(articleId => {
               let article = myArticles[articleId];
@@ -76,7 +78,8 @@ const ArticleList = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentPaperId: state.currentPaperId,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   };
 };
 
