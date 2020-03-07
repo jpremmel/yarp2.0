@@ -7,8 +7,16 @@ import { compose } from 'redux';
 const ArticleList = (props) => {
 
   const firestore = useFirestore();
-  useFirestoreConnect('articles');
-  const myArticles = useSelector(state => state.firestore.data.articles);
+  const userId = props.auth.uid;
+  useFirestoreConnect([
+    {
+      collection: 'users',
+      doc: userId,
+      subcollections: [{collection: 'articles'}],
+      storeAs: userId + '::articles'
+    }
+  ]);
+  const myArticles = useSelector(state => state.firestore.data[`${userId}::articles`]);
   const dispatch = useDispatch();
 
   const removeArticle = useCallback(

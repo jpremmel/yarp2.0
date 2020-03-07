@@ -51,8 +51,11 @@ export const saveArticle = ({ firestore }, article) => {
   if (!article.year) { article.year = ''; }
   if (!article.downloadUrl) { article.downloadUrl = ''; }
   if (!article.description) { article.description = ''; }
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const userId = getState().firebase.auth.uid;
     firestore
+      .collection('users')
+      .doc(userId)
       .collection('articles')
       .add(article)
       .then(() => {
@@ -67,8 +70,11 @@ export const saveArticle = ({ firestore }, article) => {
 }
 
 export const removeArticleFromFirebase = ({ firestore }, id) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const userId = getState().firebase.auth.uid;
     firestore
+      .collection('users')
+      .doc(userId)
       .collection('articles')
       .doc(id)
       .delete()

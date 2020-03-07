@@ -17,7 +17,7 @@ import 'firebase/auth';
 
 const reactReduxFirebaseConfig = {
   userProfile: 'users',
-  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  useFirestoreForProfile: true
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -26,7 +26,7 @@ firebase.firestore();
 
 const store = createStore(
     rootReducer, 
-    // initialState, //need to pass in initialstate?
+    // initialState, //do I need to pass this in?
     compose(
       applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
       reduxFirestore(firebase), //need this line to get access to firestore via getFirestore function
