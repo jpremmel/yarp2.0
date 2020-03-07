@@ -1,5 +1,3 @@
-// import firebase from 'firebase/app';
-// import 'firebase/firestore'; //not sure whether I need this
 
 export function fetchSearchResults(search) {
   return function (dispatch) {

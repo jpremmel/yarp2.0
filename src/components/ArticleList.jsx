@@ -43,12 +43,11 @@ const ArticleList = (props) => {
     marginBottom: '10px'
   };
 
-  const { auth, profile } = props;
-  if (auth.uid) {
+  if (props.auth.uid) {
     return(
       <div>
         <h3 style={centerTextStyle}>My Articles</h3>
-        <p style={centerTextStyle}>Currently signed in: {profile.email}</p>
+        <p style={centerTextStyle}>Currently signed in: {props.auth.email}</p>
         <br/>
         {myArticles ? (
             Object.keys(myArticles).map(articleId => {
@@ -63,17 +62,22 @@ const ArticleList = (props) => {
                     <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
                   </div>;
               }
+              let authorName = '';
+              if (article.author) {
+                authorName = ` by ${article.author}`;
+              }
               if (article) {
-                return <li 
-                key={articleId} 
-                onClick={() => {dispatch(selectArticle(articleId));}}>
-                <em>{article.title}</em> by {article.author}{articleInformation}</li>;
+                return <span key={articleId}>
+                  <li onClick={() => {dispatch(selectArticle(articleId));}}>
+                    <em>{article.title}</em>{authorName}
+                  </li>{articleInformation}
+                </span>;
               } else {
                 return null;
               }
             })
           ) : (
-            <h4 style={greyTextStyle}>No articles yet...</h4>
+            <h4 style={greyTextStyle}>No articles yet</h4>
           )
         }
       </div>
@@ -86,8 +90,7 @@ const ArticleList = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentPaperId: state.currentPaperId,
-    auth: state.firebase.auth,
-    profile: state.firebase.profile
+    auth: state.firebase.auth
   };
 };
 

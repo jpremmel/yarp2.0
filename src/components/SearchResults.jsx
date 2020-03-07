@@ -7,7 +7,6 @@ import { compose } from 'redux';
 
 const SearchResults = ({ searchResults, currentPaperId, auth}) => {
   const firestore = useFirestore();
-  useFirestoreConnect('articles');
   const dispatch = useDispatch();
 
   const saveToMyArticles = useCallback(
@@ -65,10 +64,15 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
                 {saveToMyArticlesButton}
               </div>;
           }
-          return <li 
-            key={resultId} 
-            onClick={() => {dispatch(selectArticle(result.coreId));}}>
-            <em>{result.title}</em> by {result.author}{resultInformation}</li>;
+          let authorName = '';
+          if (result.author) {
+            authorName = ` by ${result.author}`;
+          }
+          return <span key={resultId}>
+            <li onClick={() => {dispatch(selectArticle(result.coreId));}}>
+              <em>{result.title}</em>{authorName}
+            </li>{resultInformation}
+          </span>;
         })}
       </div>
     );
