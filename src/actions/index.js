@@ -77,7 +77,7 @@ export const removeArticleFromFirebase = ({ firestore }, id) => {
       .doc(id)
       .delete()
       .then(() => {
-        console.log('Deleting article from firestore: ', id);
+        console.log('Deleted article from firestore: ', id);
         dispatch({ type: 'REMOVE_ARTICLE', id });
       })
       .catch(err => {

@@ -7,6 +7,8 @@ const searchResultsReducer = (state = initialState.searchResults, action) => {
     return action.searchResults;
   case 'SEARCH_ERROR':
     return { 'ErrorMessage': 'Search unsuccessful. Please try again.' };
+  case 'SIGNOUT_SUCCESS':
+    return {};
   default:
     return state;
   }

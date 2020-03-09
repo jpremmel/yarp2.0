@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectArticle, removeArticleFromFirebase } from './../actions';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
@@ -17,6 +17,13 @@ const ArticleList = (props) => {
     }
   ]);
   const myArticles = useSelector(state => state.firestore.data[`${userId}::articles`]);
+
+  //This did not fix the error that is thrown when removing an article from my articles list:
+  // const [myArticlesState, setMyArticlesState] = useState([]);
+  // useEffect(() => {
+  //   setMyArticlesState(myArticles);
+  // }, [myArticles]);
+
   const dispatch = useDispatch();
 
   const removeArticle = useCallback(
@@ -56,7 +63,7 @@ const ArticleList = (props) => {
               if (articleId === props.currentPaperId) {
                 articleInformation =
                   <div style={detailsStyle}>
-                    <p>{article.year}</p>
+                    <p>{article.year}</p>   
                     <p>{article.description}</p>
                     <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
                     <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>

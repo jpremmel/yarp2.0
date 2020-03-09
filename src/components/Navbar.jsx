@@ -9,7 +9,6 @@ import { firebaseConnect } from 'react-redux-firebase';
 
 const Navbar = (props) => {
   const { auth, profile } = props;
-  console.log('Profile: ', profile);
   const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
 
   const navStyle = {
