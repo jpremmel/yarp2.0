@@ -9,6 +9,7 @@ const Homepage = (props) => {
   let searchCol;
   let myArticlesCol;
   const { auth } = props;
+  console.log('AUTH: ', auth);
   if (auth.uid) {
     searchCol = <div style={colStyle} className='col s6'><SearchForm/><SearchResults/></div>;
     myArticlesCol = <div style={colStyle} className='col s6'><ArticleList/></div>;

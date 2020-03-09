@@ -5,7 +5,6 @@ import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 const ArticleList = (props) => {
-
   const firestore = useFirestore();
   const userId = props.auth.uid;
   useFirestoreConnect([
@@ -17,20 +16,11 @@ const ArticleList = (props) => {
     }
   ]);
   const myArticles = useSelector(state => state.firestore.data[`${userId}::articles`]);
-
-  //This did not fix the error that is thrown when removing an article from my articles list:
-  // const [myArticlesState, setMyArticlesState] = useState([]);
-  // useEffect(() => {
-  //   setMyArticlesState(myArticles);
-  // }, [myArticles]);
-
   const dispatch = useDispatch();
-
   const removeArticle = useCallback(
     articleId => dispatch(removeArticleFromFirebase({ firestore }, articleId)),
     [firestore]
   );
-
   const greyTextStyle = {
     color: '#d9d9d9',
     textAlign: 'center'
@@ -58,26 +48,26 @@ const ArticleList = (props) => {
         <br/>
         {myArticles ? (
             Object.keys(myArticles).map(articleId => {
-              let article = myArticles[articleId];
-              let articleInformation = '';
-              if (articleId === props.currentPaperId) {
-                articleInformation =
-                  <div style={detailsStyle}>
-                    <p>{article.year}</p>   
-                    <p>{article.description}</p>
-                    <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                    <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
-                  </div>;
-              }
-              let authorName = '';
-              if (article.author) {
-                authorName = ` by ${article.author}`;
-              }
-              if (article) {
+              if (myArticles[articleId]) {
+                let article = myArticles[articleId];
+                let articleAuthor = '';
+                if (article.author) {
+                  articleAuthor = ` by ${article.author}`;
+                }
+                let articleDetails = '';
+                if (articleId === props.currentPaperId) {
+                  articleDetails =
+                    <div style={detailsStyle}>
+                      <p>{article.year}</p>   
+                      <p>{article.description}</p>
+                      <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
+                      <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
+                    </div>;
+                }
                 return <span key={articleId}>
                   <li onClick={() => {dispatch(selectArticle(articleId));}}>
-                    <em>{article.title}</em>{authorName}
-                  </li>{articleInformation}
+                    <em>{article.title}</em>{articleAuthor}
+                  </li>{articleDetails}
                 </span>;
               } else {
                 return null;
