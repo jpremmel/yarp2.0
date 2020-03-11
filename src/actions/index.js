@@ -1,16 +1,17 @@
 
 export function fetchSearchResults(search) {
   return function (dispatch) {
+    dispatch({ type: 'SEARCHING' });
     search = search.replace(' ', '_');
     return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=30&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
       response => response.json(),
-      error => console.log('Error occurred. ', error)
+      error => dispatch({ type: 'SEARCH_ERROR' })
     ).then(function (json) {
-      if (json.error) {
+      if (json && json.error) {
         console.log('Error code: ', json.error.code);
         console.log('Error message: ', json.error.message);
         dispatch({ type: 'SEARCH_ERROR' });
-      } else if (json.data.length > 0) {
+      } else if (json && json.data && json.data.length > 0) {
         let searchResults = {};
         for (let i = 0; i < json.data.length; i++) {
           let newArticle = {

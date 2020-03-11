@@ -35,7 +35,7 @@ const SignInPage = (props) => {
     marginTop: '50px',
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '50%'
+    width: '40%'
   };
   const btnStyle = {
     display: 'block',

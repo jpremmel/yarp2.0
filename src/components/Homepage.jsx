@@ -9,16 +9,15 @@ const Homepage = (props) => {
   let searchCol;
   let myArticlesCol;
   const { auth } = props;
-  console.log('AUTH: ', auth);
+  const colStyle = {
+    padding: '50px'
+  };
   if (auth.uid) {
     searchCol = <div style={colStyle} className='col s6'><SearchForm/><SearchResults/></div>;
     myArticlesCol = <div style={colStyle} className='col s6'><ArticleList/></div>;
   } else {
-    searchCol = <div style={colStyle} className='col s12'><SearchForm/><SearchResults/></div>;
+    searchCol = <div style={colStyle} className='col s6 offset-s3'><SearchForm/><SearchResults/></div>;
   }
-  const colStyle = {
-    padding: '50px'
-  };
   return (
     <div className='container'>
     <div className='row'>

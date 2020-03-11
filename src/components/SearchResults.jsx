@@ -28,6 +28,13 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
   const centerTextStyle = {
     textAlign: 'center'
   };
+  const preloaderStyle = {
+    width: '70%',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '70px'
+  };
   const searchError = {
     color: '#d9d9d9',
     textAlign: 'center'
@@ -36,7 +43,13 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
   if (Object.entries(searchResults).length != 0){
     searchHeader = <div><h3 style={centerTextStyle}>Search Results</h3><br/></div>;
   }
-  if (searchResults.ErrorMessage) {
+  if (searchResults.Status === 'Fetching search results...') {
+    return(
+      <div className="progress" style={preloaderStyle}>
+        <div className="indeterminate">
+        </div>
+      </div>);
+  } else if (searchResults.ErrorMessage) {
     return(
       <div>
         <h5 style={searchError}>{searchResults.ErrorMessage}</h5>

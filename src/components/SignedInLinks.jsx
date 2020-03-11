@@ -16,9 +16,7 @@ const SignedInLinks = (props) => {
     color: 'black'
   };
   return (
-    <ul className='right'>
-      <li><NavLink to='/' onClick={handleSignOut} style={linkStyle}>Sign Out</NavLink></li>
-    </ul>
+    <li><NavLink to='/' onClick={handleSignOut} style={linkStyle}>Sign Out</NavLink></li>
   );
 };
 
