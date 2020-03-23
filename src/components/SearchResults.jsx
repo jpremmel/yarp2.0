@@ -83,11 +83,17 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
             if (myArticlesCoreIds.includes(result.coreId)) {
               saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
               style={btnStyle}
-              disabled={true}>Added To My Articles</button>;
+              disabled={true}>
+                <i className='material-icons left'>done</i>
+                Added To My Articles
+              </button>;
             } else {
               saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
               style={btnStyle}
-              onClick={() => {saveToMyArticles(result);}}>Add To My Articles</button>;
+              onClick={() => {saveToMyArticles(result);}}>
+                <i className='material-icons left'>add</i>
+                Add To My Articles
+                </button>;
             }
           }
           let resultInformation = '';
@@ -96,7 +102,12 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
               <div style={detailsStyle}>
                 <p>{result.year}</p>
                 <p>{result.description}</p>
-                <a target='_blank' href={result.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
+                <a target='_blank' href={result.downloadUrl}>
+                  <button style={btnStyle} className='waves-effect waves-light btn-small'>
+                    <i className='material-icons left'>launch</i>
+                    See article
+                  </button>
+                </a>
                 {saveToMyArticlesButton}
               </div>;
           }

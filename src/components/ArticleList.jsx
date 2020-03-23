@@ -69,8 +69,16 @@ const ArticleList = (props) => {
                     <div style={detailsStyle}>
                       <p>{article.year}</p>   
                       <p>{article.description}</p>
-                      <a target="_blank" href={article.downloadUrl}><button style={btnStyle} className='waves-effect waves-light btn-small'>See article</button></a>
-                      <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
+                      <a target="_blank" href={article.downloadUrl}>
+                        <button style={btnStyle} className='waves-effect waves-light btn-small'>
+                          <i className='material-icons left'>launch</i>
+                          See article
+                        </button>
+                      </a>
+                      <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>
+                      <i className='material-icons left'>remove</i>
+                        Remove from My Articles
+                      </button>
                     </div>;
                 }
                 return <div key={articleId} style={listView}>

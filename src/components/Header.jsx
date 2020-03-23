@@ -21,7 +21,7 @@ const Header = () => {
       <div className='row'>
         <div className='col s6 offset-s3' style={centerColStyle}>
           <NavLink to='/' style={linkStyle}><h1 id='yarp'>YARP</h1></NavLink>
-          <h5>Yepicodus Academic Research Portal</h5>
+          <h6>Yepicodus Academic Research Portal</h6>
         </div>
       </div>
     </div>
