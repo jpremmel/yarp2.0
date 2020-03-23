@@ -6,13 +6,21 @@ const Header = () => {
     textAlign: 'center'
   };
   const linkStyle = {
-    color: 'black'
+    display: 'inline-block',
+    color: 'black',
+    textShadow: '1px 1px #dfe0e1'
   };
+  const linkHover = `
+    #yarp:hover {
+      text-shadow: 1px 1px #26a69a;
+    }
+  `;
   return(
     <div>
+      <style>{linkHover}</style>
       <div className='row'>
         <div className='col s6 offset-s3' style={centerColStyle}>
-          <NavLink to='/' style={linkStyle}><h1>YARP</h1></NavLink>
+          <NavLink to='/' style={linkStyle}><h1 id='yarp'>YARP</h1></NavLink>
           <h5>Yepicodus Academic Research Portal</h5>
         </div>
       </div>

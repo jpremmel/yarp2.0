@@ -14,6 +14,9 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
     [firestore]
   );
 
+  const listView = {
+    marginBottom: '10px'
+  };
   const detailsStyle = {
     backgroundColor: '#d9d9d9',
     borderRadius: '3px',
@@ -35,6 +38,11 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
     marginRight: 'auto',
     marginTop: '70px'
   };
+  const titleHover = `
+  .title:hover {
+    color: #26a69a;
+  }
+  `;
   const searchError = {
     color: '#d9d9d9',
     textAlign: 'center'
@@ -58,6 +66,7 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
   } else {
     return(
       <div>
+        <style>{titleHover}</style>
         {searchHeader}
         {Object.keys(searchResults).map(resultId => {
           let result = searchResults[resultId];
@@ -81,11 +90,11 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
           if (result.author) {
             authorName = ` by ${result.author}`;
           }
-          return <span key={resultId}>
-            <li onClick={() => {dispatch(selectArticle(result.coreId));}}>
-              <em>{result.title}</em>{authorName}
-            </li>{resultInformation}
-          </span>;
+          return <div key={resultId} style={listView}>
+            <div className='title' onClick={() => {dispatch(selectArticle(result.coreId));}}>
+              <b>{result.title}</b>{authorName}
+            </div>{resultInformation}
+          </div>;
         })}
       </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
-import CoreLogo from '../images/core-logo.png';
+import CoreLogo from '../images/powered-by-core.png';
 import GitHubLogo from '../images/github-logo.png';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -17,26 +17,27 @@ const Navbar = (props) => {
   };
   const coreImgStyle = {
     maxHeight: '40px',
-    marginBottom: '-5px'
+    marginBottom: '-8px',
+    padding: '0 15px'
   };
+  const coreHover = `
+  #coreLogo:hover {
+  background-color: #dfe0e1;
+  }
+`;
   const gitHubImgStyle = {
     maxHeight: '40px',
     marginBottom: '-15px',
     hover: 'none'
   };
-  const noHover = `
-    #github:hover {
-    background-color: #f8f9fa;
-    }
-  `;
   return (
     <nav className='nav-wrapper' style={navStyle}>
-      <style>{noHover}</style>
+      <style>{coreHover}</style>
       <div className='container'>
-        <a target='_blank' href='https://core.ac.uk/' className='brand-logo'><img src={CoreLogo} style={coreImgStyle}/></a>
+        <a target='_blank' href='https://core.ac.uk/' className='brand-logo' id='coreLogo'><img src={CoreLogo} style={coreImgStyle}/></a>
         <ul className='right'>
           {links}
-          <a target='_blank' href='https://github.com/jpremmel/yarp2.0' className='right' id='github'><img src={GitHubLogo} style={gitHubImgStyle}/></a>
+          <a target='_blank' href='https://github.com/jpremmel/yarp2.0' className='right'><img src={GitHubLogo} style={gitHubImgStyle}/></a>
         </ul>
       </div>
     </nav>

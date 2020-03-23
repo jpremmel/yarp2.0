@@ -28,6 +28,9 @@ const ArticleList = (props) => {
   const centerTextStyle = {
     textAlign: 'center'
   };
+  const listView = {
+    marginBottom: '10px'
+  };
   const detailsStyle = {
     backgroundColor: '#d9d9d9',
     borderRadius: '3px',
@@ -39,10 +42,16 @@ const ArticleList = (props) => {
     marginRight: 'auto',
     marginBottom: '10px'
   };
+  const titleHover = `
+  .title:hover {
+    color: #26a69a;
+  }
+  `;
 
   if (props.auth.uid) {
     return(
       <div>
+        <style>{titleHover}</style>
         <h3 style={centerTextStyle}>My Articles</h3>
         <p style={centerTextStyle}>Currently signed in: {props.auth.email}</p>
         <br/>
@@ -64,11 +73,11 @@ const ArticleList = (props) => {
                       <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>Remove from My Articles</button>
                     </div>;
                 }
-                return <span key={articleId}>
-                  <li onClick={() => {dispatch(selectArticle(articleId));}}>
-                    <em>{article.title}</em>{articleAuthor}
-                  </li>{articleDetails}
-                </span>;
+                return <div key={articleId} style={listView}>
+                  <div className='title' onClick={() => {dispatch(selectArticle(articleId));}}>
+                    <b>{article.title}</b>{articleAuthor}
+                  </div>{articleDetails}
+                </div>;
               } else {
                 return null;
               }
