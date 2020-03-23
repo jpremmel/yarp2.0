@@ -5,7 +5,7 @@ import { selectArticle, saveArticle } from './../actions';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-const SearchResults = ({ searchResults, currentPaperId, auth}) => {
+const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) => {
   const firestore = useFirestore();
   const dispatch = useDispatch();
 
@@ -14,11 +14,19 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
     [firestore]
   );
 
+  let myArticlesCoreIds = [];
+  if (myArticlesList) {
+    Object.keys(myArticlesList).map(articleInMyList => {
+      if (myArticlesList[articleInMyList]) {
+        myArticlesCoreIds.push(myArticlesList[articleInMyList].coreId);
+      }
+    });
+  }
   const listView = {
     marginBottom: '10px'
   };
   const detailsStyle = {
-    backgroundColor: '#d9d9d9',
+    backgroundColor: '#f2f2f2',
     borderRadius: '3px',
     padding: '15px'
   };
@@ -49,7 +57,7 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
   };
   let searchHeader = '';
   if (Object.entries(searchResults).length != 0){
-    searchHeader = <div><h3 style={centerTextStyle}>Search Results</h3><br/></div>;
+    searchHeader = <div><h4 style={centerTextStyle}>Search Results</h4><br/></div>;
   }
   if (searchResults.Status === 'Fetching search results...') {
     return(
@@ -72,9 +80,15 @@ const SearchResults = ({ searchResults, currentPaperId, auth}) => {
           let result = searchResults[resultId];
           let saveToMyArticlesButton;
           if (auth.uid) {
-            saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
-            style={btnStyle}
-            onClick={() => {saveToMyArticles(result);}}>Add To My Articles</button>;
+            if (myArticlesCoreIds.includes(result.coreId)) {
+              saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
+              style={btnStyle}
+              disabled={true}>Added To My Articles</button>;
+            } else {
+              saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
+              style={btnStyle}
+              onClick={() => {saveToMyArticles(result);}}>Add To My Articles</button>;
+            }
           }
           let resultInformation = '';
           if (result.coreId === currentPaperId) {
@@ -107,10 +121,16 @@ SearchResults.propTypes = {
 
 const mapStateToProps = (state) => {
   let results = null;
+  let myArticles = null;
   if (state.searchResults != null) {
     results = state.searchResults;
   }
+  if (state.firebase.auth.uid) {
+    const userId = state.firebase.auth.uid;
+    myArticles = state.firestore.data[`${userId}::articles`];
+  }
   return {
+    myArticlesList: myArticles,
     searchResults: results,
     currentPaperId: state.currentPaperId,
     auth: state.firebase.auth

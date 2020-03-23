@@ -32,7 +32,7 @@ const ArticleList = (props) => {
     marginBottom: '10px'
   };
   const detailsStyle = {
-    backgroundColor: '#d9d9d9',
+    backgroundColor: '#f2f2f2',
     borderRadius: '3px',
     padding: '15px'
   };
@@ -52,7 +52,7 @@ const ArticleList = (props) => {
     return(
       <div>
         <style>{titleHover}</style>
-        <h3 style={centerTextStyle}>My Articles</h3>
+        <h4 style={centerTextStyle}>My Articles</h4>
         <p style={centerTextStyle}>Currently signed in: {props.auth.email}</p>
         <br/>
         {myArticles ? (
