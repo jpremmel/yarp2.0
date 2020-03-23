@@ -1,9 +1,8 @@
-
 export function fetchSearchResults(search) {
   return function (dispatch) {
     dispatch({ type: 'SEARCHING' });
     search = search.replace(' ', '_');
-    return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=30&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
+    return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=100&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(
       response => response.json(),
       error => dispatch({ type: 'SEARCH_ERROR' })
     ).then(function (json) {
@@ -58,7 +57,6 @@ export const saveArticle = ({ firestore }, article) => {
       .collection('articles')
       .add(article)
       .then(() => {
-        console.log('Adding article to firestore: ', article);
         dispatch({ type: 'SAVE_ARTICLE', article });
       })
       .catch(err => {
@@ -78,7 +76,6 @@ export const removeArticleFromFirebase = ({ firestore }, id) => {
       .doc(id)
       .delete()
       .then(() => {
-        console.log('Deleted article from firestore: ', id);
         dispatch({ type: 'REMOVE_ARTICLE', id });
       })
       .catch(err => {

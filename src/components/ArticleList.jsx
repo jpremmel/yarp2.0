@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectArticle, removeArticleFromFirebase } from './../actions';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
@@ -21,6 +21,7 @@ const ArticleList = (props) => {
     articleId => dispatch(removeArticleFromFirebase({ firestore }, articleId)),
     [firestore]
   );
+  
   const greyTextStyle = {
     color: '#d9d9d9',
     textAlign: 'center'
@@ -108,4 +109,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default compose(connect(mapStateToProps))(ArticleList);
+export default compose(
+  connect(mapStateToProps)
+)(ArticleList);

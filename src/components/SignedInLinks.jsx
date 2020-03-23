@@ -6,12 +6,10 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { signOut } from '../actions/authActions';
 
 const SignedInLinks = (props) => {
-
   const handleSignOut = () => {
     const { firebase } = props;
     props.signOut(firebase);
   }
-
   const linkStyle = {
     color: 'black'
   };

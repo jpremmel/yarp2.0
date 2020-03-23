@@ -5,11 +5,10 @@ import Homepage from './Homepage';
 import CreateAcctPage from './CreateAcctPage';
 import SignInPage from './SignInPage';
 import 'materialize-css/dist/css/materialize.min.css';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { Switch, Route, withRouter/*, BrowserRouter ??? */ } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -19,7 +18,6 @@ class App extends React.Component {
 
   render() {
     const { auth } = this.props;
-    //Only render App if auth is loaded - might be able to get rid of this now that I'm doing this in index.jsx???
     if (auth.isLoaded) {
       return(
         <div>
@@ -37,10 +35,6 @@ class App extends React.Component {
     }
   }
 }
-
-// App.propTypes = {
-//   dispatch: PropTypes.func
-// };
 
 const mapStateToProps = (state) => ({
   auth: state.firebase.auth

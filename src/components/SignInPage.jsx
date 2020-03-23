@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { signIn } from '../actions/authActions';
 
 const SignInPage = (props) => {

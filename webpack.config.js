@@ -70,7 +70,7 @@ module.exports = {
             loader: 'eslint-loader',
             exclude: [
               /node_modules/,
-              /core-logo.png/,
+              /powered-by-core.png/,
               /github-logo.png/
             ],
             options: {

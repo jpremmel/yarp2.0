@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { fetchSearchResults } from './../actions';
 
 const SearchForm = ({ dispatch }) => {
@@ -31,10 +30,6 @@ const SearchForm = ({ dispatch }) => {
       </form>
     </div>
   );
-};
-
-SearchForm.propTypes = {
-  dispatch: PropTypes.func
 };
 
 export default connect()(SearchForm);

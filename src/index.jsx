@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk';
 import { getFirestore, createFirestoreInstance, reduxFirestore } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase, isLoaded } from 'react-redux-firebase';
 import constants from './constants';
-const { firebaseConfig, initialState } = constants;
+const { firebaseConfig } = constants;
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -21,12 +21,10 @@ const reactReduxFirebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-//firebase.analytics(); ????
 firebase.firestore();
 
 const store = createStore(
     rootReducer, 
-    // initialState, //do I need to pass this in?
     compose(
       applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
       reduxFirestore(firebase), //need this line to get access to firestore via getFirestore function

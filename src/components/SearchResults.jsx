@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { selectArticle, saveArticle } from './../actions';
-import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
+import { useFirestore } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) => {
@@ -22,6 +22,7 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
       }
     });
   }
+
   const listView = {
     marginBottom: '10px'
   };
@@ -55,10 +56,12 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
     color: '#d9d9d9',
     textAlign: 'center'
   };
+
   let searchHeader = '';
   if (Object.entries(searchResults).length != 0){
     searchHeader = <div><h4 style={centerTextStyle}>Search Results</h4><br/></div>;
   }
+  
   if (searchResults.Status === 'Fetching search results...') {
     return(
       <div className="progress" style={preloaderStyle}>
@@ -82,18 +85,18 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
           if (auth.uid) {
             if (myArticlesCoreIds.includes(result.coreId)) {
               saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
-              style={btnStyle}
-              disabled={true}>
-                <i className='material-icons left'>done</i>
-                Added To My Articles
+                style={btnStyle}
+                disabled={true}>
+                  <i className='material-icons left'>done</i>
+                  Added To My Articles
               </button>;
             } else {
               saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
-              style={btnStyle}
-              onClick={() => {saveToMyArticles(result);}}>
-                <i className='material-icons left'>add</i>
-                Add To My Articles
-                </button>;
+                style={btnStyle}
+                onClick={() => {saveToMyArticles(result);}}>
+                  <i className='material-icons left'>add</i>
+                  Add To My Articles
+              </button>;
             }
           }
           let resultInformation = '';
@@ -148,4 +151,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default compose(connect(mapStateToProps))(SearchResults);
+export default compose(
+  connect(mapStateToProps)
+)(SearchResults);

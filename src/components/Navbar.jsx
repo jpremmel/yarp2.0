@@ -4,7 +4,6 @@ import SignedOutLinks from './SignedOutLinks';
 import CoreLogo from '../images/powered-by-core.png';
 import GitHubLogo from '../images/github-logo.png';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
 
@@ -21,16 +20,16 @@ const Navbar = (props) => {
     padding: '0 15px'
   };
   const coreHover = `
-  #coreLogo {
-    transition-property: background-color;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-  }
-  #coreLogo:hover {
-  background-color: #dfe0e1;
-  }
-`;
+    #coreLogo {
+      transition-property: background-color;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+      transition-delay: 0s;
+    }
+    #coreLogo:hover {
+    background-color: #dfe0e1;
+    }
+  `;
   const gitHubImgStyle = {
     maxHeight: '40px',
     marginBottom: '-15px',
