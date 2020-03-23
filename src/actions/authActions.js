@@ -27,16 +27,16 @@ export const signUp = ({ credentials, firebase }) => {
       credentials.email,
       credentials.password
     )
-    .then((response) => { //add new firebase user to firestore users collection
-      return firestore.collection('users').doc(response.user.uid).set({
-        email: credentials.email
+      .then((response) => { //add new firebase user to firestore users collection
+        return firestore.collection('users').doc(response.user.uid).set({
+          email: credentials.email
+        });
       })
-    })
-    .then(() => {
-      dispatch({ type: 'SIGNUP_SUCCESS' });
-    })
-    .catch((err) => {
-      dispatch({ type: 'SIGNUP_ERROR', err });
-    })
+      .then(() => {
+        dispatch({ type: 'SIGNUP_SUCCESS' });
+      })
+      .catch((err) => {
+        dispatch({ type: 'SIGNUP_ERROR', err });
+      });
   };
 };

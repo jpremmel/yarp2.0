@@ -20,11 +20,11 @@ const Homepage = (props) => {
   }
   return (
     <div className='container'>
-    <div className='row'>
-      {searchCol}
-      {myArticlesCol}
+      <div className='row'>
+        {searchCol}
+        {myArticlesCol}
+      </div>
     </div>
-  </div>
   );
 };
 

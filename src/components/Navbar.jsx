@@ -39,10 +39,10 @@ const Navbar = (props) => {
     <nav className='nav-wrapper' style={navStyle}>
       <style>{coreHover}</style>
       <div className='container'>
-        <a target='_blank' href='https://core.ac.uk/' className='brand-logo' id='coreLogo'><img src={CoreLogo} style={coreImgStyle}/></a>
+        <a target='_blank' rel='noopener noreferrer'  href='https://core.ac.uk/' className='brand-logo' id='coreLogo'><img src={CoreLogo} style={coreImgStyle}/></a>
         <ul className='right'>
           {links}
-          <a target='_blank' href='https://github.com/jpremmel/yarp2.0' className='right'><img src={GitHubLogo} style={gitHubImgStyle}/></a>
+          <a target='_blank' rel='noopener noreferrer' href='https://github.com/jpremmel/yarp2.0' className='right'><img src={GitHubLogo} style={gitHubImgStyle}/></a>
         </ul>
       </div>
     </nav>

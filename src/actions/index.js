@@ -63,8 +63,8 @@ export const saveArticle = ({ firestore }, article) => {
         console.log('Error: ', err);
         dispatch({ type: 'SAVE_ARTICLE_ERROR', err });
       });
-  }
-}
+  };
+};
 
 export const removeArticleFromFirebase = ({ firestore }, id) => {
   return (dispatch, getState) => {
@@ -82,4 +82,4 @@ export const removeArticleFromFirebase = ({ firestore }, id) => {
         console.log('Error: ', err);
       });
   };
-}
+};

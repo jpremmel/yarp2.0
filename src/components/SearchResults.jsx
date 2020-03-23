@@ -87,14 +87,14 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
               saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
                 style={btnStyle}
                 disabled={true}>
-                  <i className='material-icons left'>done</i>
+                <i className='material-icons left'>done</i>
                   Added To My Articles
               </button>;
             } else {
               saveToMyArticlesButton = <button className='waves-effect waves-light btn-small'
                 style={btnStyle}
                 onClick={() => {saveToMyArticles(result);}}>
-                  <i className='material-icons left'>add</i>
+                <i className='material-icons left'>add</i>
                   Add To My Articles
               </button>;
             }
@@ -105,7 +105,7 @@ const SearchResults = ({ myArticlesList, searchResults, currentPaperId, auth}) =
               <div style={detailsStyle}>
                 <p>{result.year}</p>
                 <p>{result.description}</p>
-                <a target='_blank' href={result.downloadUrl}>
+                <a target='_blank' rel='noopener noreferrer' href={result.downloadUrl}>
                   <button style={btnStyle} className='waves-effect waves-light btn-small'>
                     <i className='material-icons left'>launch</i>
                     See article

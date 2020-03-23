@@ -7,7 +7,7 @@ const SignedOutLinks = () => {
   };
   return (
     <span><li><NavLink to='/sign-in' style={linkStyle}>Sign In</NavLink></li>
-    <li><NavLink to='/create-acct' style={linkStyle}>Create Account</NavLink></li></span>
+      <li><NavLink to='/create-acct' style={linkStyle}>Create Account</NavLink></li></span>
   );
 };
 

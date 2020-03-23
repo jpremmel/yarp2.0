@@ -87,7 +87,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   signUp: (signUpData) => dispatch(signUp(signUpData))
-})
+});
 
 export default compose(
   firebaseConnect(),

@@ -24,12 +24,12 @@ firebase.initializeApp(firebaseConfig);
 firebase.firestore();
 
 const store = createStore(
-    rootReducer, 
-    compose(
-      applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
-      reduxFirestore(firebase), //need this line to get access to firestore via getFirestore function
-    )
-  );
+  rootReducer, 
+  compose(
+    applyMiddleware(middlewareLogger, thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
+    reduxFirestore(firebase) //need this line to get access to firestore via getFirestore function
+  )
+);
 
 const rrfProps = {
   firebase,

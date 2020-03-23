@@ -9,7 +9,7 @@ const SignedInLinks = (props) => {
   const handleSignOut = () => {
     const { firebase } = props;
     props.signOut(firebase);
-  }
+  };
   const linkStyle = {
     color: 'black'
   };

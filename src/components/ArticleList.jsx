@@ -57,43 +57,43 @@ const ArticleList = (props) => {
         <p style={centerTextStyle}>Currently signed in: {props.auth.email}</p>
         <br/>
         {myArticles ? (
-            Object.keys(myArticles).map(articleId => {
-              if (myArticles[articleId]) {
-                let article = myArticles[articleId];
-                let articleAuthor = '';
-                if (article.author) {
-                  articleAuthor = ` by ${article.author}`;
-                }
-                let articleDetails = '';
-                if (articleId === props.currentPaperId) {
-                  articleDetails =
-                    <div style={detailsStyle}>
-                      <p>{article.year}</p>   
-                      <p>{article.description}</p>
-                      <a target="_blank" href={article.downloadUrl}>
-                        <button style={btnStyle} className='waves-effect waves-light btn-small'>
-                          <i className='material-icons left'>launch</i>
+          Object.keys(myArticles).map(articleId => {
+            if (myArticles[articleId]) {
+              let article = myArticles[articleId];
+              let articleAuthor = '';
+              if (article.author) {
+                articleAuthor = ` by ${article.author}`;
+              }
+              let articleDetails = '';
+              if (articleId === props.currentPaperId) {
+                articleDetails =
+                  <div style={detailsStyle}>
+                    <p>{article.year}</p>   
+                    <p>{article.description}</p>
+                    <a target='_blank' rel='noopener noreferrer' href={article.downloadUrl}>
+                      <button style={btnStyle} className='waves-effect waves-light btn-small'>
+                        <i className='material-icons left'>launch</i>
                           See article
-                        </button>
-                      </a>
-                      <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>
+                      </button>
+                    </a>
+                    <button style={btnStyle} className='waves-effect waves-light btn-small' onClick={() => {removeArticle(articleId);}}>
                       <i className='material-icons left'>remove</i>
                         Remove from My Articles
-                      </button>
-                    </div>;
-                }
-                return <div key={articleId} style={listView}>
-                  <div className='title' onClick={() => {dispatch(selectArticle(articleId));}}>
-                    <b>{article.title}</b>{articleAuthor}
-                  </div>{articleDetails}
-                </div>;
-              } else {
-                return null;
+                    </button>
+                  </div>;
               }
-            })
-          ) : (
-            <h4 style={greyTextStyle}>No articles yet</h4>
-          )
+              return <div key={articleId} style={listView}>
+                <div className='title' onClick={() => {dispatch(selectArticle(articleId));}}>
+                  <b>{article.title}</b>{articleAuthor}
+                </div>{articleDetails}
+              </div>;
+            } else {
+              return null;
+            }
+          })
+        ) : (
+          <h4 style={greyTextStyle}>No articles yet</h4>
+        )
         }
       </div>
     );

@@ -10,6 +10,7 @@
     "lint-fix": "eslint src/**/** --fix & exit 0",
     "build": "webpack"
   },
+  "eslintIgnore": ["github-logo.png", "powered-by-core.png", "favicon.ico"],
   "author": "",
   "license": "ISC",
   "dependencies": {
