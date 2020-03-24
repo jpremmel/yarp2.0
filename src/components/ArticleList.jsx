@@ -102,12 +102,10 @@ const ArticleList = (props) => {
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentPaperId: state.currentPaperId,
-    auth: state.firebase.auth
-  };
-};
+const mapStateToProps = (state) => ({
+  currentPaperId: state.currentPaperId,
+  auth: state.firebase.auth
+});
 
 export default compose(
   connect(mapStateToProps)

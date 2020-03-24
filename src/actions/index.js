@@ -37,6 +37,10 @@ export function fetchSearchResults(search) {
   };
 }
 
+export const clearSearchResults = () => ({
+  type: 'CLEAR_SEARCH_RESULTS'
+});
+
 export const selectArticle = selectedArticle => ({
   type: 'SELECT_ARTICLE',
   selectedArticle
