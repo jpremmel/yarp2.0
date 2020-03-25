@@ -1,5 +1,8 @@
-export function fetchSearchResults(search) {
+export function fetchSearchResults(search, myArticlesCoreIds, currentPaperId) {
   return function (dispatch) {
+    if (!myArticlesCoreIds.includes(currentPaperId)) {
+      dispatch({ type: 'REMOVE_ARTICLE' });
+    }
     dispatch({ type: 'SEARCHING' });
     search = search.replace(' ', '_');
     return fetch(`https://core.ac.uk:443/api-v2/articles/search/${search}?page=1&pageSize=100&metadata=true&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=${process.env.API_KEY}`).then(

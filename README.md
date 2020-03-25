@@ -1,12 +1,12 @@
 # _YARP_
 
-#### _Yepicodus Academic Research Portal, 23 March 2020_
+#### _Yepicodus Academic Research Portal, 24 March 2020_
 
 #### By _**Jacqueline Remmel and Mike McShane**_
 
 ## Description
 
-This is a React/Redux frontend app that uses Google's [Firebase](https://firebase.google.com/ "Firebase") & [Cloud Firestore](https://firebase.google.com/docs/firestore "Cloud Firestore documentation") for user authentication and NoSQL database storage. Any user can navigate to the app's homepage and enter a search term to browse articles from the [CORE API](https://core.ac.uk/ "CORE Homepage"). If the user is signed in, they can choose to save an article from the search results to their "My Articles" list.
+This is a React/Redux frontend app that uses Google's [Firebase](https://firebase.google.com/ "Firebase") & [Cloud Firestore](https://firebase.google.com/docs/firestore "Cloud Firestore documentation") for user authentication and database storage. Any user can navigate to the app's homepage and enter a search term to browse articles from the [CORE API](https://core.ac.uk/ "CORE Homepage"). If the user is signed in, they can choose to save an article from the search results to their "My Articles" list.
 
 React component structure:
 

@@ -32,4 +32,6 @@ const mapStateToProps = (state) => ({
   auth: state.firebase.auth
 });
 
-export default compose(connect(mapStateToProps))(Homepage);
+export default compose(
+  connect(mapStateToProps)
+)(Homepage);
